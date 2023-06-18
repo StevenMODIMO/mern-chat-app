@@ -26,5 +26,5 @@ router.post("/chat/share", shareRoom)
 router.post("/chat/join", joinRoom)
 router.get("/chat/rooms", joinedRooms)
 router.delete("/chat/delete/join/:id", leaveRoom)
-router.get("/chat/room-chats/:room", fetchRoomChats)
+router.get("/chat/:room", fetchRoomChats)
 module.exports = router;
