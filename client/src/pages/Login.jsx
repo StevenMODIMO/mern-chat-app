@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion"
+import Loader from "../components/Loader"
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -20,11 +21,13 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false)
   const { dispatch } = useAuth();
   const navigate = useNavigate();
 
   const handleForm = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const response = await fetch("http://localhost:5000/api/user/login", {
       method: "POST",
       body: JSON.stringify({ email, password }),
@@ -47,6 +50,7 @@ export default function Login() {
       dispatch({ type: "LOGIN", payload: json });
       navigate("/chat");
     }
+    setLoading(false)
   };
   return (
     <div className="h-screen lg:mt-20">
@@ -58,11 +62,11 @@ export default function Login() {
           variants={container}
           initial="hidden"
           animate="visible"
-          className="flex flex-col items-center gap-2 text-2xl mt-2 p-2 m-2 bg-zinc-800 rounded"
+          className="flex flex-col items-center gap-2 text-xl mt-2 p-2 m-2 bg-gray-800 rounded"
           onSubmit={handleForm}
           onFocus={() => setError(null)}
         >
-          <label htmlFor="Email"  className="-ml-16 w-50">
+          <label htmlFor="Email"  className="-ml-32 w-50 text-green-500">
             Enter your email:
           </label>
           <input
@@ -71,9 +75,9 @@ export default function Login() {
             type="text"
             placeholder="Enter your Email"
             autoComplete="off"
-            className="border-2 border-yellow-500 rounded shadow-sm mb-4 outline-none w-72"
+            className="border-2 border-green-500 rounded shadow-sm mb-4 outline-none w-72"
           />
-          <label htmlFor="password" className="-ml-16 w-50">
+          <label htmlFor="password" className="-ml-24 w-50 text-green-500">
             Enter your password:
           </label>
           <input
@@ -81,11 +85,13 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Enter your Password"
-            className="border-2 border-yellow-500 rounded shadow-sm mb-4 outline-none w-72"
+            className="border-2 border-green-500 rounded shadow-sm mb-4 outline-none w-72"
           />
-          <button className="border-2 border-yellow-500 p-1 rounded">
+          {loading ? <div>
+            <Loader />
+          </div> : <button className="bg-green-500 px-2 py-1 rounded">
             Login
-          </button>
+          </button>}
         </motion.form>
         <AnimatePresence>
           {error && (
@@ -94,7 +100,7 @@ export default function Login() {
              initial={{ scale: 0.8}}
              animate={{ scale: 1}}
              transition={{ type: "spring", stiffness: 500}}
-             exit={{ x: 300, transition: { stiffness: 0 } }}
+             exit={{ scale: 0, transition: { stiffness: 0 } }}
           >
             {error}
           </motion.div>

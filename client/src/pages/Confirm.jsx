@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion"
+import Loader from "../components/Loader"
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -18,10 +19,11 @@ const container = {
 export default function Confirm() {
   const [code, setCode] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false)
   const navigate = useNavigate();
   const { dispatch } = useAuth();
   const otv = JSON.parse(localStorage.getItem("OTV"));
-  console.log(otv);
+
   const handleForm = async (e) => {
     const otvUsername = otv.username;
     const otvEmail = otv.email;
@@ -29,6 +31,7 @@ export default function Confirm() {
     const otvCode = otv.otp;
     const inputCode = code.toString();
     e.preventDefault();
+    setLoading(true)
     const response = await fetch("http://localhost:5000/api/user/signup", {
       method: "POST",
       headers: {
@@ -47,6 +50,7 @@ export default function Confirm() {
 
     if (!response.ok) {
       setError(json.error);
+      setCode("")
     }
 
     if (response.ok) {
@@ -56,9 +60,13 @@ export default function Confirm() {
       dispatch({ type: "LOGIN", payload: json });
       navigate("/chat");
     }
+    setLoading(false)
   };
   return (
     <div className="mt-20 h-screen">
+      <header className="w-fit mx-auto bg-gray-900 text-center text-green-500 p-1 rounded">
+        <h1>A code has been sent to your email, Enter it to confirm if this email is active. Please confirm within 24HRS</h1>
+      </header>
       <header className="text-center text-3xl mt-2">
         <h2>Confirm Email:</h2>
       </header>
@@ -69,7 +77,7 @@ export default function Confirm() {
           animate="visible"
           onFocus={() => setError(null)}
           onSubmit={handleForm}
-          className="flex flex-col items-center justify-center gap-2 text-2xl mt-2 p-2 m-2 bg-zinc-800 rounded"
+          className="flex flex-col items-center justify-center gap-2 text-2xl mt-2 p-2 m-2 bg-gray-800 rounded"
         >
           
           <input
@@ -77,11 +85,13 @@ export default function Confirm() {
             autoComplete="off"
             placeholder="Enter confirmation code"
             onChange={(e) => setCode(e.target.value)}
-            className="border-2 border-yellow-500 rounded shadow-sm mb-4 outline-none w-72"
+            className="border-2 border-green-500 rounded shadow-sm mb-4 outline-none w-72"
           />
-          <button  className="border-2 border-yellow-500 p-1 rounded">
+          {loading ? <div>
+            <Loader />
+          </div> : <button  className="bg-green-500 p-1 rounded">
             Confirm
-          </button>
+          </button>}
         </motion.form>
         <AnimatePresence>
           {error && (
@@ -90,7 +100,7 @@ export default function Confirm() {
              initial={{ scale: 0.8}}
              animate={{ scale: 1}}
              transition={{ type: "spring", stiffness: 500}}
-             exit={{ x: 300, transition: { stiffness: 0 } }}
+             exit={{ scale: 0, transition: { stiffness: 0 } }}
           >
             {error}
           </motion.div>

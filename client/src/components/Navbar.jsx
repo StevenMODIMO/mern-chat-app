@@ -50,7 +50,10 @@ export default function Navbar() {
             <img src={Logo} alt="logo" className="w-6 mt-1 md:mt-1" />
             <h1 className="text-lg ">mernChatApp</h1>
           </div>
-          <div onClick={togglePanel} className="text-3xl md:hidden">
+          <div
+            onClick={togglePanel}
+            className="text-3xl text-green-500 md:hidden"
+          >
             {showLinks ? <FaTimes /> : <AiOutlineBars />}
           </div>
         </header>
@@ -58,29 +61,29 @@ export default function Navbar() {
           <nav
             className={
               showLinks
-                ? "bg-black  h-screen transition-all duration-300 ease-in-out"
-                : "bg-black  h-0 overflow-hidden transition-all duration-300 ease-in-out md:overflow-visible"
+                ? "bg-black h-screen transition-all duration-300 ease-in-out"
+                : "bg-black h-0 overflow-hidden transition-all duration-300 ease-in-out md:overflow-visible"
             }
           >
             {!user ? (
               <div className="text-xl pt-2 text-green-500 md:flex gap-3 md:text-lg">
                 <section
                   onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit"
+                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black"
                 >
                   <BiHomeAlt className="mt-1" />
                   <NavLink to="/">Home</NavLink>
                 </section>
                 <section
                   onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit"
+                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black"
                 >
                   <AiOutlineUserAdd className="mt-1" />
                   <NavLink to="/signup">Sign Up</NavLink>
                 </section>
                 <section
                   onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit  md:mr-2"
+                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black md:mr-2"
                 >
                   <AiOutlineLogin className="mt-1" />
                   <NavLink to="/login">Login</NavLink>
@@ -90,21 +93,21 @@ export default function Navbar() {
               <div className="text-xl pt-2 text-green-500 md:flex gap-3 md:text-lg">
                 <section
                   onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit bg-gray-900"
+                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black"
                 >
                   <BsChatRightTextFill className="mt-1" />
                   <NavLink to="/chat">Chat</NavLink>
                 </section>
                 <section
                   onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit"
+                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black"
                 >
                   <AiOutlineUser className="mt-1" />
                   <NavLink to="/profile">Profile</NavLink>
                 </section>
                 <section
                   onClick={logoutEffect}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:mr-2 cursor-pointer"
+                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:mr-2 cursor-pointer md:bg-black"
                 >
                   <AiOutlineLogout className="mt-1" />
                   <h1>Logout</h1>
