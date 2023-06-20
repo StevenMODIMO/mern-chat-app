@@ -124,9 +124,9 @@ export default function Profile() {
         Authorization: `Bearer ${user.token}`,
       },
     });
-    
-    const joinedRooms = joined.filter((room) => room._id !== id)
-    setJoined(joinedRooms)
+
+    const joinedRooms = joined.filter((room) => room._id !== id);
+    setJoined(joinedRooms);
   };
 
   return (
@@ -136,46 +136,52 @@ export default function Profile() {
           <Loader />
         </div>
       ) : (
-        <div>
+        <div className="lg:flex gap-28">
           {modalOpen && <EditForm close={closeModal} />}
-          <motion.div
-            initial={{ x: -300 }}
-            animate={{ x: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="mt-5 text-center text-3xl md:mt-28 lg:mt-10">
-              Welcome, <span>{userInfo.username}</span>
-            </div>
-          </motion.div>
+          <section className="lg:shadow-2xl shadow-green-400 rounded mt-4 ml-4 ltr:shadow-2xl h-fit pb-5 pr-5">
+            <div className="lg:">
+              <motion.div
+                initial={{ x: -300 }}
+                animate={{ x: 0 }}
+                transition={{ duration: 0.5 }}
+              >
+                <div className="mt-5 text-center text-3xl md: lg:mt-10">
+                  Welcome, <span>{userInfo.username}</span>
+                </div>
+              </motion.div>
 
-          <div className="flex justify-center mt-5">
-            <motion.img
-              initial={{ scale: 0.5 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 500, delay: 0.5 }}
-              className="shadow-sm shadow-zinc-900 rounded-full mt-3"
-              src={`https://api.dicebear.com/5.x/identicon/svg?seed=${user.email}&size=50&radius=10`}
-              alt="avatar"
-            />
-          </div>
+              <div className="flex justify-center mt-5 md:mt-0 lg:mt-5">
+                <motion.img
+                  initial={{ scale: 0.5 }}
+                  animate={{ scale: 1 }}
+                  transition={{ type: "spring", stiffness: 500, delay: 0.5 }}
+                  className="shadow-sm shadow-zinc-900 rounded-full mt-3"
+                  src={`https://api.dicebear.com/5.x/identicon/svg?seed=${user.email}&size=50&radius=10`}
+                  alt="avatar"
+                />
+              </div>
 
-          <div className="flex justify-center mt-5">
-            <div
-              className="gap-2 text-2xl hover:bg-zinc-800 cursor-pointer shadow-sm shadow-zinc-900 p-2 rounded flex w-36"
-              onClick={toggleModal}
-            >
-              <FaUserEdit className="mt-1" />
-              Edit Info
+              <div className="flex justify-center mt-5 lg:mt-10">
+                <div
+                  className="gap-2 text-2xl bg-green-500 hover:bg-white hover:text-green-500 cursor-pointer shadow-sm shadow-zinc-900 p-2 rounded flex w-36"
+                  onClick={toggleModal}
+                >
+                  <FaUserEdit className="mt-1" />
+                  Edit Info
+                </div>
+              </div>
             </div>
-          </div>
-          <div>
-            <div className="lg:flex justify-center">
+
+            <div className="md:flex justify-center lg:mt-10 ml-4">
               <motion.section
                 initial={{ scale: 0.8 }}
                 animate={{ scale: 1 }}
                 transition={{ type: "spring", stiffness: 400, delay: 1 }}
-                className="mx-2 mt-10 p-4 bg-zinc-900/30 shadow-sm shadow-zinc-800 rounded md:flex lg:flex-col items-center lg:w-80"
+                className="-ml-5 mt-10 p-4 bg-gray-900 w-72 text-green-500 rounded sm:w-auto md:w-80"
               >
+                <h1 className="text-center underline md:text-xl">
+                  Profile Info:
+                </h1>
                 <div
                   initial={{ scale: 0.8 }}
                   animate={{ scale: 1 }}
@@ -213,127 +219,144 @@ export default function Profile() {
                 </div>
               </motion.section>
             </div>
-
-            <section className="mt-14">
+          </section>
+          <div>
+            <section className="mt-14 lg:mt-5">
               {userRooms.length == 0 ? (
-                <section className="flex flex-col items-center">
-                  <div>You Dont have any Rooms</div>
+                <section className="flex flex-col items-center lg:ml-72 lg:mt-60">
+                  <div>Sorry!! You Don't have any Rooms</div>
                   <motion.div
                     animate={{ rotate: [360, 180, 360, 180, 360] }}
                     transition={{}}
                   >
-                    <TbMoodSuprised className="text-5xl" />
+                    <TbMoodSuprised className="text-5xl lg:text-9xl" />
                   </motion.div>
                 </section>
               ) : (
-                <div className="text-2xl text-center">Manage Rooms</div>
+                <div className="text-2xl text-center underline text-green-500">
+                  Manage Rooms
+                </div>
               )}
 
-              {userRooms.map((room) => {
-                return (
-                  <div className="lg:flex justify-center">
-                    <AnimatePresence>
-                      <motion.main
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                        exit={{ scale: 0, transition: { stiffness: 0 } }}
-                        key={room._id}
-                        className="bg-zinc-900/30 rounded m-2 p-1 md:text-3xl flex flex-col items-center"
-                      >
-                        <div>
-                          <div className="flex gap-2 m-2">
-                            <img
-                              className="shadow-sm shadow-zinc-900 h-10 rounded-full mt-3"
-                              src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=50&radius=10`}
-                              alt="avatar"
-                            />
-                            <h1 className="text-2xl mt-5">{room.roomName}</h1>
-                          </div>
-                          <div className="flex gap-2 m-3">
-                            <span>
-                              <HiOutlineIdentification className="text-3xl mt-1" />
-                            </span>
-                            <div className="mt-1">{room._id}</div>
-                          </div>
-                          <section className="flex gap-2 m-3">
-                            <div>
-                              <HiUserGroup className="text-3xl mt-1" />
-                            </div>
-                            <div className="mt-1 ">
-                              Members: {room.users.length}
-                            </div>
-                          </section>
-                          <section className="flex gap-2 m-3">
-                            <div>
-                              <BiMessageSquareDetail className="text-3xl mt-1" />
-                            </div>
-                            <div className="mt-1">
-                              Messages: {room.chats.length}
-                            </div>
-                          </section>
-                        </div>
-                        <div
-                          className="text-2xl flex justify-center cursor-pointer p-2 mt-5 bg-red-900/30 rounded"
-                          onClick={() => deleteRoom(room._id)}
+              <section className="md:grid grid-cols-2 lg:shadow-2xl mr-5 p-3 rounded  overflow-auto">
+                {userRooms.map((room) => {
+                  return (
+                    <div>
+                        <motion.main
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                          key={room._id}
+                          className="bg-gray-900 text-green-500 rounded m-2 p-1 md:text-xl"
                         >
-                          <RiDeleteBin6Line className="mt-1" />
-                          <span>Delete Room</span>
-                        </div>
-                      </motion.main>
-                    </AnimatePresence>
-                  </div>
-                );
-              })}
-              {joined.map((room) => {
-                return (
-                <div className="lg:flex justify-center">
-                  <AnimatePresence>
-                  <motion.main initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        transition={{ type: "spring", stiffness: 300 }}
-                        exit={{ scale: 0, transition: { stiffness: 0 } }}
-                        key={room._id}
-                        className="bg-zinc-900/30 rounded m-2 p-1 md:text-3xl flex flex-col items-center">
-                    <div className="flex gap-2 m-2">
-                      <img
-                        className="shadow-sm shadow-zinc-900 h-10 rounded-full mt-3"
-                        src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=50&radius=10`}
-                        alt="avatar"
-                      />
-                      <h1 className="text-2xl mt-5">{room.roomName}</h1>
-                    </div>
-                     <div className="flex gap-2 m-3">
-                            <span>
-                              <HiOutlineIdentification className="text-3xl mt-1" />
-                            </span>
-                            <div className="mt-1">{room._id}</div>
-                          </div>
-                          <section className="flex gap-2 m-3">
+                          <section>
                             <div>
-                              <HiUserGroup className="text-3xl mt-1" />
+                              <div className="flex gap-2 m-2">
+                                <img
+                                  className="h-5 rounded-full mt-3"
+                                  src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=50&radius=10`}
+                                  alt="avatar"
+                                />
+                                <h1 className="text-xl mt-2">
+                                  {room.roomName}
+                                </h1>
+                              </div>
+                              <div className="flex gap-2">
+                                <span>
+                                  <HiOutlineIdentification className="text-3xl mt-1" />
+                                </span>
+                                <div className="mt-1">{room._id}</div>
+                              </div>
+                              <section className="flex gap-2">
+                                <div>
+                                  <HiUserGroup className="text-3xl mt-1" />
+                                </div>
+                                <div className="mt-2 ">
+                                  Members: {room.users.length}
+                                </div>
+                              </section>
+                              <section className="flex gap-2 mt-1">
+                                <div>
+                                  <BiMessageSquareDetail className="text-3xl mt-1" />
+                                </div>
+                                <div className="mt-2">
+                                  Messages: {room.chats.length}
+                                </div>
+                              </section>
                             </div>
-                            <div className="mt-1 ">
-                              Members: {room.users.length}
+                            <div
+                              className="text-xl flex justify-center gap-2 cursor-pointer p-2 mt-5 bg-red-900/30 rounded"
+                              onClick={() => deleteRoom(room._id)}
+                            >
+                              <RiDeleteBin6Line className="mt-1" />
+                              <span>Delete Room</span>
                             </div>
                           </section>
-                          <section className="flex gap-2 m-3">
-                            <div>
-                              <BiMessageSquareDetail className="text-3xl mt-1" />
-                            </div>
-                            <div className="mt-1">
-                              Messages: {room.chats.length}
-                            </div>
-                          </section>
-                    <div onClick={() => leaveRoom(room._id)} className="text-2xl flex justify-center cursor-pointer p-2 mt-5 bg-red-900/30 rounded">
-                      <MdOutlineExitToApp className="mt-1" />
-                      <span>Leave Room</span>
+                        </motion.main>
                     </div>
-                  </motion.main>
-                  </AnimatePresence>
-                  </div>
-                );
-              })}
+                  );
+                })}
+              </section>
+              <section className="md:grid grid-cols-2 lg:mt-10 shadow-2xl rounded">
+                <>
+                  {joined.map((room) => {
+                    return (
+                      <div>
+                        <h1 className="text-center underline text-2xl text-green-500">
+                          Rooms you joined
+                        </h1>
+                          <motion.main
+                            initial={{ opacity: 0, scale: 0.8 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ type: "spring", stiffness: 300 }}
+                            key={room._id}
+                            className="bg-gray-900 text-green-500 rounded m-2 p-1 md:text-xl"
+                          >
+                            <div className="flex gap-2 m-2">
+                              <img
+                                className="h-5 rounded-full mt-3"
+                                src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=50&radius=10`}
+                                alt="avatar"
+                              />
+                              <h1 className="text-xl mt-2">{room.roomName}</h1>
+                            </div>
+                            <div className="flex gap-2">
+                              <span>
+                                <HiOutlineIdentification className="text-3xl mt-1" />
+                              </span>
+                              <div className="mt-1">{room._id}</div>
+                            </div>
+                            <section className="flex gap-2">
+                              <div>
+                                <HiUserGroup className="text-3xl mt-1" />
+                              </div>
+                              <div className="mt-1 ">
+                                Members: {room.users.length}
+                              </div>
+                            </section>
+                            <section className="flex gap-2 mt-1">
+                              <div>
+                                <BiMessageSquareDetail className="text-3xl mt-1" />
+                              </div>
+                              <div className="mt-2">
+                                Messages: {room.chats.length}
+                              </div>
+                            </section>
+                            <div
+                              onClick={() => leaveRoom(room._id)}
+                              className="text-2xl flex justify-center gap-2 cursor-pointer p-2 mt-5 bg-red-900/30 rounded"
+                            >
+                              <MdOutlineExitToApp className="mt-1" />
+                              <span>Leave Room</span>
+                            </div>
+                          </motion.main>
+                      </div>
+                    );
+                  })}
+                </>
+              
+              </section>
+              
             </section>
           </div>
         </div>
@@ -342,28 +365,31 @@ export default function Profile() {
       <div className="lg:flex justify-center">
         <motion.div
           initial={{ opacity: 0, scale: 0.8 }}
-          whileInView={{ opacity: 1, scale: 1 }}
+          animate={{ opacity: 1, scale: 1 }}
           transition={{ type: "spring", stiffness: 400 }}
-          className="mx-2 mt-10 p-4 bg-red-900/30 shadow-sm shadow-zinc-800 rounded md:flex flex-col"
+          className="mx-2 mt-10 p-4 bg-gray-900 shadow-sm shadow-zinc-800 rounded md:flex flex-col"
         >
           <div className="text-2xl">
-            <div className="flex gap-3 m-4 md:justify-center">
+            <div className="flex gap-3 ml-5 mb-5 text-red-500 md:justify-center">
               <FiAlertTriangle className="text-3xl" />
               <div>Danger Zone</div>
             </div>
-            <div className="bg-zinc-800/95 rounded p-2 mx-3 text-center">
+            <div className="bg-zinc-800/95 rounded p-2 text-lg text-green-500 mx-3 text-center">
               Actions in this section cannot be undone
             </div>
           </div>
           <span
             onClick={deleteAccount}
-            className="flex gap-3 m-4 bg-red-800/95 p-2 cursor-pointer rounded md:justify-center"
+            className="flex gap-1 w-fit mx-auto m-4 bg-red-800/95 p-2 cursor-pointer rounded md:justify-center"
           >
-            <RiDeleteBin6Line className="text-3xl" />
-            <div className="md:text-2xl">Delete Account</div>
+            <RiDeleteBin6Line className="text-2xl" />
+            <div className="text-xl">Delete Account</div>
           </span>
         </motion.div>
       </div>
+      <footer className="text-green-400 rounded w-full mx-auto p-1 bg-gray-900 text-center mt-5">
+              <span className="text-xs">&copy; mernChatApp 2023</span>
+            </footer>
     </div>
   );
 }
