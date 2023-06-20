@@ -241,77 +241,16 @@ export default function Profile() {
               <section className="md:grid grid-cols-2 lg:shadow-2xl mr-5 p-3 rounded  overflow-auto">
                 {userRooms.map((room) => {
                   return (
-                    <div>
-                        <motion.main
-                          initial={{ opacity: 0, scale: 0.8 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ type: "spring", stiffness: 300 }}
-                          key={room._id}
-                          className="bg-gray-900 text-green-500 rounded m-2 p-1 md:text-xl"
-                        >
-                          <section>
-                            <div>
-                              <div className="flex gap-2 m-2">
-                                <img
-                                  className="h-5 rounded-full mt-3"
-                                  src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=50&radius=10`}
-                                  alt="avatar"
-                                />
-                                <h1 className="text-xl mt-2">
-                                  {room.roomName}
-                                </h1>
-                              </div>
-                              <div className="flex gap-2">
-                                <span>
-                                  <HiOutlineIdentification className="text-3xl mt-1" />
-                                </span>
-                                <div className="mt-1">{room._id}</div>
-                              </div>
-                              <section className="flex gap-2">
-                                <div>
-                                  <HiUserGroup className="text-3xl mt-1" />
-                                </div>
-                                <div className="mt-2 ">
-                                  Members: {room.users.length}
-                                </div>
-                              </section>
-                              <section className="flex gap-2 mt-1">
-                                <div>
-                                  <BiMessageSquareDetail className="text-3xl mt-1" />
-                                </div>
-                                <div className="mt-2">
-                                  Messages: {room.chats.length}
-                                </div>
-                              </section>
-                            </div>
-                            <div
-                              className="text-xl flex justify-center gap-2 cursor-pointer p-2 mt-5 bg-red-900/30 rounded"
-                              onClick={() => deleteRoom(room._id)}
-                            >
-                              <RiDeleteBin6Line className="mt-1" />
-                              <span>Delete Room</span>
-                            </div>
-                          </section>
-                        </motion.main>
-                    </div>
-                  );
-                })}
-              </section>
-              <section className="md:grid grid-cols-2 lg:mt-10 shadow-2xl rounded">
-                <>
-                  {joined.map((room) => {
-                    return (
-                      <div>
-                        <h1 className="text-center underline text-2xl text-green-500">
-                          Rooms you joined
-                        </h1>
-                          <motion.main
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ type: "spring", stiffness: 300 }}
-                            key={room._id}
-                            className="bg-gray-900 text-green-500 rounded m-2 p-1 md:text-xl"
-                          >
+                    <div key={room._id}>
+                      <motion.main
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ type: "spring", stiffness: 300 }}
+                        key={room._id}
+                        className="bg-gray-900 text-green-500 rounded m-2 p-1 md:text-xl"
+                      >
+                        <section>
+                          <div>
                             <div className="flex gap-2 m-2">
                               <img
                                 className="h-5 rounded-full mt-3"
@@ -330,7 +269,7 @@ export default function Profile() {
                               <div>
                                 <HiUserGroup className="text-3xl mt-1" />
                               </div>
-                              <div className="mt-1 ">
+                              <div className="mt-2 ">
                                 Members: {room.users.length}
                               </div>
                             </section>
@@ -342,21 +281,78 @@ export default function Profile() {
                                 Messages: {room.chats.length}
                               </div>
                             </section>
-                            <div
-                              onClick={() => leaveRoom(room._id)}
-                              className="text-2xl flex justify-center gap-2 cursor-pointer p-2 mt-5 bg-red-900/30 rounded"
-                            >
-                              <MdOutlineExitToApp className="mt-1" />
-                              <span>Leave Room</span>
+                          </div>
+                          <div
+                            className="text-xl flex justify-center gap-2 cursor-pointer p-2 mt-5 bg-red-900/30 rounded"
+                            onClick={() => deleteRoom(room._id)}
+                          >
+                            <RiDeleteBin6Line className="mt-1" />
+                            <span>Delete Room</span>
+                          </div>
+                        </section>
+                      </motion.main>
+                    </div>
+                  );
+                })}
+              </section>
+              <section className="md:grid grid-cols-2 lg:mt-10 shadow-2xl rounded">
+                <>
+                  {joined.map((room) => {
+                    return (
+                      <div>
+                        <h1 className="text-center underline text-2xl text-green-500">
+                          Rooms you joined
+                        </h1>
+                        <motion.main
+                          initial={{ opacity: 0, scale: 0.8 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ type: "spring", stiffness: 300 }}
+                          key={room._id}
+                          className="bg-gray-900 text-green-500 rounded m-2 p-1 md:text-xl"
+                        >
+                          <div className="flex gap-2 m-2">
+                            <img
+                              className="h-5 rounded-full mt-3"
+                              src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=50&radius=10`}
+                              alt="avatar"
+                            />
+                            <h1 className="text-xl mt-2">{room.roomName}</h1>
+                          </div>
+                          <div className="flex gap-2">
+                            <span>
+                              <HiOutlineIdentification className="text-3xl mt-1" />
+                            </span>
+                            <div className="mt-1">{room._id}</div>
+                          </div>
+                          <section className="flex gap-2">
+                            <div>
+                              <HiUserGroup className="text-3xl mt-1" />
                             </div>
-                          </motion.main>
+                            <div className="mt-1 ">
+                              Members: {room.users.length}
+                            </div>
+                          </section>
+                          <section className="flex gap-2 mt-1">
+                            <div>
+                              <BiMessageSquareDetail className="text-3xl mt-1" />
+                            </div>
+                            <div className="mt-2">
+                              Messages: {room.chats.length}
+                            </div>
+                          </section>
+                          <div
+                            onClick={() => leaveRoom(room._id)}
+                            className="text-2xl flex justify-center gap-2 cursor-pointer p-2 mt-5 bg-red-900/30 rounded"
+                          >
+                            <MdOutlineExitToApp className="mt-1" />
+                            <span>Leave Room</span>
+                          </div>
+                        </motion.main>
                       </div>
                     );
                   })}
                 </>
-              
               </section>
-              
             </section>
           </div>
         </div>
@@ -388,8 +384,8 @@ export default function Profile() {
         </motion.div>
       </div>
       <footer className="text-green-400 rounded w-full mx-auto p-1 bg-gray-900 text-center mt-5">
-              <span className="text-xs">&copy; mernChatApp 2023</span>
-            </footer>
+        <span className="text-xs">&copy; mernChatApp 2023</span>
+      </footer>
     </div>
   );
 }

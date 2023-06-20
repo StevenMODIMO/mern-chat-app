@@ -59,7 +59,6 @@ export default function ChatForm({ data, leave }) {
 
         if (response.ok) {
           setMessageList(json);
-          console.log(json)
         }
       };
       fetchChatRooms();

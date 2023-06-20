@@ -54,8 +54,8 @@ export default function Chat() {
       )}
       
         <div className={showForm
-            ? "absolute top-0 h-full overflow-scroll w-full bg-zinc-900/95 rounded lg:flex justify-center items-center overflow-x-hidden"
-            : "hidden"}>
+            ? "absolute top-0 h-full overflow-scroll w-full bg-gray-900 rounded lg:flex justify-center items-center overflow-x-hidden"
+            : "hidden lg:block"}>
           <UserRooms
             close={closeForm}
             joined={joined}

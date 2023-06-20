@@ -44,7 +44,7 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
 
   return (
     <motion.div>
-      <header className="flex cursor-pointer justify-end text-4xl md:text-5xl" onClick={close}>
+      <header className="flex cursor-pointer justify-end text-4xl text-green-500 md:text-5xl" onClick={close}>
         <FaTimes />
       </header>
       {Open && (
@@ -58,39 +58,39 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
         </div>
       )}
       <header
-        className="flex m-2 p-2 cursor-pointer rounded bg-zinc-800/95"
+        className="flex gap-1 m-2 p-2 cursor-pointer rounded bg-green-500"
         onClick={openForm}
       >
-        <AiFillPlusSquare className="mt-1" />
-        <div>New Room</div>
+        <AiFillPlusSquare className="mt-1 text-3xl" />
+        <div className="text-lg mt-1">New Room</div>
       </header>
       <header
-        className="flex m-2 p-2 cursor-pointer rounded bg-zinc-800/95"
+        className="flex gap-1 m-2 p-2 cursor-pointer rounded bg-green-500"
         onClick={openJoin}
       >
-        <AiFillPlusSquare className="mt-1" />
-        <div>Join Room</div>
+        <AiFillPlusSquare className="mt-1 text-3xl" />
+        <div className="text-lg mt-1">Join Room</div>
       </header>
       <div>{showForm && <RoomForm closeForm={closeForm} />}</div>
       <div className="overflow-scroll overflow-x-hidden h-72">
         {userRooms.length == 0 ? (
-          <section className="flex flex-col items-center">
-            <div>No Rooms</div>
+          <section className="flex flex-col items-center mt-10 text-green-500">
+            <div>No Room Chats</div>
             <div
               animate={{ rotate: [360, 180, 360, 180, 360] }}
               transition={{}}
             >
-              <TbMoodSuprised className="text-5xl" />
+              <TbMoodSuprised className="text-8xl" />
             </div>
           </section> 
         ) : (
-          <div className="text-2xl text-center">Rooms</div>
+          <div className="text-2xl text-center text-green-500 border-b-2 border-green-500 mt-3">Chat Rooms</div>
         )}
         {userRooms.map((room) => {  
           return (
             <div
               key={room._id}
-              className="flex justify-between bg-zinc-800/80 m-2 p-2 rounded md:p-0"
+              className="flex justify-between bg-gray-800 m-2 p-2 rounded md:p-0"
             >
               <main
                 onClick={() => {
@@ -101,18 +101,22 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
                 className="flex items-center gap-2 cursor-pointer md:w-40"
               >
                 <img
-                  className="shadow-sm shadow-zinc-900 rounded-full mt-3 md:h-10"
+                  className="shadow-sm shadow-zinc-900 rounded-sm h-10 -mt-2 md:h-10"
                   src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=50&radius=10`}
                   alt="avatar"
                 />
-                <div className="mt-3">{room.roomName}</div>
+                <section>
+                <div className="text-2xl text-green-500">{room.roomName}</div>
+                <div className="text-xs text-green-500">{room.chats.length} Chats</div>
+                <div className="text-xs text-green-500">{room.users.length} Members</div>
+                </section>
               </main>
               <div
                 onClick={() => {
                   setId(room._id);
                   openPanel();
                 }}
-                className="bg-zinc-700 p-2 m-2 mt-3 rounded"
+                className="text-green-500 mt-5 bg-gray-700 h-fit p-2 rounded"
               >
                 <FaShare title="Share Room" />
               </div>

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useAuth } from "../context/AuthContext";
 import { FaTimes } from "react-icons/fa";
 import { motion, AnimatePresence } from "framer-motion";
+import Loader from "./Loader"
 
 const container = {
   hidden: { opacity: 0, scale: 0 },
@@ -18,9 +19,13 @@ const container = {
 export default function JoinForm({ closeJoin }) {
   const [id, setId] = useState("");
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(false)
   const { user } = useAuth();
+
+
   const handleForm = async (e) => {
     e.preventDefault();
+    setLoading(true)
     const response = await fetch("http://localhost:5000/api/app/chat/join", {
       method: "POST",
       body: JSON.stringify({ roomId: id, name: user.username }),
@@ -43,37 +48,40 @@ export default function JoinForm({ closeJoin }) {
       setError(json.error);
       setId("");
     }
+    setLoading(false)
   };
   return (
     <motion.div
-      className="absolute top-0 bg-zinc-800/95 h-full"
+      className="absolute top-0 bg-zinc-800/95 h-full w-full"
       variants={container}
       initial="hidden"
       animate="visible"
     >
-      <section onClick={closeJoin} className="flex justify-end m-2">
+      <section onClick={closeJoin} className="flex justify-end m-2 text-4xl text-green-500">
         <FaTimes />
       </section>
-      <header className="text-center m-4">
-        <div>Join Form</div>
+      <header className="text-center border-b-2 border-green-500 text-green-500 m-4">
+        <div className="text-green-500 text-xl">Join a room</div>
       </header>
-      <main>
+      <main className="mt-10">
         <form
           onSubmit={handleForm}
           onFocus={() => setError(null)}
-          className="flex flex-col items-center gap-2 text-2xl mt-2 p-2 m-2"
+          className="flex flex-col items-center gap-2 text-xl mt-2 p-2 m-2"
         >
-          <label htmlFor="email">Enter Room Id</label>
+          <label className="-ml-40 text-green-500">Enter Room Id</label>
           <input
             value={id}
             type="text"
             placeholder="Room Id"
             onChange={(e) => setId(e.target.value)}
-            className="w-72 p-1 outline-none rounded border-2 border-yellow-500"
+            className="w-72 p-1 outline-none rounded border border-green-500"
           />
-          <button className="border-2 border-yellow-500 p-1 rounded">
+          {loading ? <div className="mt-5">
+            <Loader />
+          </div> : <button className="bg-green-500 p-1 mt-5 rounded">
             Join Room
-          </button>
+          </button>}
         </form>
         <AnimatePresence>
           {error && (
@@ -82,7 +90,7 @@ export default function JoinForm({ closeJoin }) {
               initial={{ scale: 0.8 }}
               animate={{ scale: 1 }}
               transition={{ type: "spring", stiffness: 500 }}
-              exit={{ x: 300, transition: { stiffness: 0 } }}
+              exit={{ scale: 0, transition: { stiffness: 0 } }}
             >
               {error}
             </motion.div>
