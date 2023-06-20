@@ -48,7 +48,7 @@ export default function RoomForm({ closeForm }) {
   };
   return (
     <motion.div
-      className="absolute top-0 bg-zinc-800/95 h-full w-full"
+      className="absolute top-0 bg-zinc-800/95 h-full w-full lg:w-96"
       variants={container}
       initial="hidden"
       animate="visible"

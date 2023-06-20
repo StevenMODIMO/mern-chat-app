@@ -40,11 +40,11 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
       }
     };
     getUserRooms();
-  }, []);
+  }, [userRooms]);
 
   return (
     <motion.div>
-      <header className="flex cursor-pointer justify-end text-4xl text-green-500 md:text-5xl" onClick={close}>
+      <header className="flex cursor-pointer justify-end text-4xl text-green-500 md:text-5xl lg:hidden" onClick={close}>
         <FaTimes />
       </header>
       {Open && (
@@ -58,7 +58,7 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
         </div>
       )}
       <header
-        className="flex gap-1 m-2 p-2 cursor-pointer rounded bg-green-500"
+        className="flex gap-1 m-2 p-2 cursor-pointer rounded bg-green-500 lg:mt-5"
         onClick={openForm}
       >
         <AiFillPlusSquare className="mt-1 text-3xl" />
@@ -72,7 +72,7 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
         <div className="text-lg mt-1">Join Room</div>
       </header>
       <div>{showForm && <RoomForm closeForm={closeForm} />}</div>
-      <div className="overflow-scroll overflow-x-hidden h-72">
+      <div className="overflow-scroll overflow-x-hidden h-72  lg:h-96 border-r-2 border-gray-900 mt-6">
         {userRooms.length == 0 ? (
           <section className="flex flex-col items-center mt-10 text-green-500">
             <div>No Room Chats</div>
@@ -90,7 +90,7 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
           return (
             <div
               key={room._id}
-              className="flex justify-between bg-gray-800 m-2 p-2 rounded md:p-0"
+              className="flex justify-between bg-gray-800 m-2 p-2 rounded md:p-0 lg:hover:bg-gray-700 cursor-pointer"
             >
               <main
                 onClick={() => {
@@ -116,7 +116,7 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
                   setId(room._id);
                   openPanel();
                 }}
-                className="text-green-500 mt-5 bg-gray-700 h-fit p-2 rounded"
+                className="text-green-500 mt-5 bg-gray-700 h-fit p-2 rounded lg:mr-4"
               >
                 <FaShare title="Share Room" />
               </div>
