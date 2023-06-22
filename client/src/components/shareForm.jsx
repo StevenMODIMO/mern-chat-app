@@ -26,7 +26,7 @@ export default function ShareForm({ closePanel, RoomID }) {
   const handleForm = async (e) => {
     e.preventDefault();
     setLoading(true)
-    const response = await fetch("http://localhost:5000/api/app/chat/share", {
+    const response = await fetch("https://chat-server-d27s.onrender.com/api/app/chat/share", {
       method: "POST",
       body: JSON.stringify({ receiverEmail: email, RoomID: RoomID }),
       headers: {
@@ -51,7 +51,7 @@ export default function ShareForm({ closePanel, RoomID }) {
   };
   return (
     <motion.div
-      className="absolute top-0 bg-zinc-800/95 h-full w-full lg:w-96"
+      className="absolute top-0 bg-zinc-800/95 h-full w-full"
       variants={container}
       initial="hidden"
       animate="visible"

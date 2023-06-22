@@ -1,35 +1,25 @@
-import { useState } from "react";
 import { RiGroup2Fill } from "react-icons/ri";
-import { BsFillChatLeftTextFill } from "react-icons/bs";
-import { MdOutlinePrivacyTip } from "react-icons/md";
-import { GiJoint } from "react-icons/gi";
-import { FaShare } from "react-icons/fa";
-import { motion } from "framer-motion";
-import { CgProfile } from "react-icons/cg";
-import { IoIosCreate } from "react-icons/io";
-import { BsFillChatRightDotsFill, BsShareFill } from "react-icons/bs";
-import data from "@emoji-mart/data";
-import Picker from "@emoji-mart/react";
+import { useNavigate } from "react-router-dom";
 
 export default function Landing() {
-  const [text, setText] = useState("");
+  const navigate = useNavigate();
   return (
-    <div className="h-fit flex flex-col mt-10 md:items-center lg:mt-10">
+    <div className="bg-gray-900 text-green-600 h-screen flex flex-col md:items-center">
       <section>
         <header className="text-center">
           <div className="text-5xl ">Hi!</div>
           <div className="text-2xl">Welcome to mernChatApp</div>
         </header>
         <main>
-          <motion.div
+          <div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", stiffness: 300 }}
             className="flex justify-center text-9xl"
           >
             <RiGroup2Fill />
-          </motion.div>
-          <motion.div
+          </div>
+          <div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ type: "spring", stiffness: 300 }}
@@ -38,28 +28,22 @@ export default function Landing() {
               mernChatApp is a room based messaging platform that enables people
               to connect and exchange on various aspects of their daily lives
             </h1>
-          </motion.div>
+          </div>
         </main>
       </section>
-      <div>{text}</div>
-      <input
-        type="text"
-        className="border outline-none border-blue-500"
-        value={text}
-        onChange={(e) => setText(e.target.value)}
-      />
-      <Picker
-        data={data}
-        onEmojiSelect={(emoji) => setText(text + emoji.native)}
-        maxFrequentRows={0}
-        searchPosition="none"
-        theme="dark"
-        previewPosition="none"
-        icons="solid"
-        emojiSize="20"
-        perLine="6"
-        rows={4}
-      />
+
+      <section>
+        <div
+          className="bg-green-500 text-gray-900 text-center p-5 mx-5 mt-3 rounded cursor-pointer"
+          onClick={() => navigate("/signup")}
+        >
+          Sign Up to get started now
+        </div>
+      </section>
+
+      <footer className="text-green-400 rounded w-full mx-auto p-1 text-center mt-5">
+        <span className="text-xs">&copy; mernChatApp 2023</span>
+      </footer>
     </div>
   );
 }

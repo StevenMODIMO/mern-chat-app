@@ -21,3 +21,9 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
+
+@media screen and (min-width: 1024px) {
+  .biko {
+    height: 500px;
+  }
+}

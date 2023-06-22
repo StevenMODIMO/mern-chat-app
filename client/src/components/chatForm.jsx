@@ -8,7 +8,7 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { BsEmojiDizzy } from "react-icons/bs";
 
-export default function ChatForm({ data, leave }) {
+export default function ChatForm({ name, leave }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
   const [picker, setPicker] = useState(false);
@@ -19,7 +19,7 @@ export default function ChatForm({ data, leave }) {
     if (currentMessage !== "") {
       const month = new Date().getMonth() + 1;
       const messageData = {
-        room: data,
+        room: name,
         message: currentMessage,
         time:
           new Date().getFullYear() +
@@ -39,8 +39,8 @@ export default function ChatForm({ data, leave }) {
   };
 
   useEffect(() => {
-    socket.on("received", (data) => {
-      setMessageList((list) => [...list, data]);
+    socket.on("received", (name) => {
+      setMessageList((list) => [...list, name]);
     });
 
     return () => {
@@ -52,7 +52,7 @@ export default function ChatForm({ data, leave }) {
     if (data) {
       const fetchChatRooms = async () => {
         const response = await fetch(
-          `http://localhost:5000/api/app/chat/${data}`,
+          `https://chat-server-d27s.onrender.com/api/app/chat/${name}`,
           {
             headers: {
               Authorization: `Bearer ${user.token}`,
@@ -68,7 +68,7 @@ export default function ChatForm({ data, leave }) {
       };
       fetchChatRooms();
     }
-  }, [data]);
+  }, [name]);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -80,15 +80,15 @@ export default function ChatForm({ data, leave }) {
   }, [messageList]);
 
   return (
-    <div className="bg-gray-900 h-fit md:h-0 lg:w-4/4 lg:h-full lg:ml-80">
+    <div className="bg-gray-900 h-fit md:h-0 lg:w-4/4 lg:h-full lg:ml-96 lg:mt-3 lg:mr-5 lg:bg-white">
       <header className="flex justify-between items-center  bg-gray-900">
         <div className="flex text-xl items-center gap-1 ml-3">
           <img
             className="shadow-sm shadow-zinc-900 rounded-sm h-8 md:h-5"
-            src={`https://api.dicebear.com/5.x/identicon/svg?seed=${data}&size=50&radius=10`}
+            src={`https://api.dicebear.com/5.x/identicon/svg?seed=${name}&size=50&radius=10`}
             alt="avatar"
           />
-          <div className="text-green-500">{data}</div>
+          <div className="text-green-500">{name}</div>
           <span>
             <Ping />
           </span>
@@ -102,14 +102,14 @@ export default function ChatForm({ data, leave }) {
       </header>
       <div
         ref={chatContainerRef}
-        className="h-96 p-2 bg-gray-800 overflow-scroll overflow-x-hidden"
+        className="h-96 p-2 bg-gray-800 overflow-scroll overflow-x-hidden biko"
       >
-        {messageList.map((data) => {
+        {messageList.map((name) => {
           return (
             <main
-              key={data._id}
+              key={name._id}
               className={
-                data.sender == user.username
+                name.sender == user.username
                   ? "flex justify-start"
                   : "flex justify-end mr-5"
               }
@@ -118,15 +118,15 @@ export default function ChatForm({ data, leave }) {
                 <section className="flex gap-1 m-1">
                   <img
                     className="h-5 mt-1 rounded-sm border-2 border-green-900"
-                    src={`https://api.dicebear.com/5.x/identicon/svg?seed=${data.sender}&size=50&radius=10`}
+                    src={`https://api.dicebear.com/5.x/identicon/svg?seed=${name.sender}&size=50&radius=10`}
                     alt="avatar"
                   />
                 </section>
                 <section className="bg-gray-700 text-lg w-fit  my-1 rounded">
-                  <div className="text-green-500 px-1">{data.message}</div>
+                  <div className="text-green-500 px-1">{name.message}</div>
                   <section className="flex justify-end">
                   <div className="rounded-sm bg-gray-800 mb-1 text-green-700 mr-1 w-fit text-xs">
-                    {data.time}
+                    {name.time}
                   </div>
                 </section>
                 </section>
@@ -158,7 +158,7 @@ export default function ChatForm({ data, leave }) {
       </div>
       <form
         onSubmit={sendMessage}
-        className="mx-1 rounded-lg flex justify-between border border-green-500 bg-gray-700 text-xl lg:mt-20"
+        className="mx-1 rounded-lg flex justify-between border border-green-500 bg-gray-700 text-xl lg:rounded-none mx-0"
       >
         <label
           className="text-green-500 mt-1 text-2xl ml-1"
@@ -177,7 +177,7 @@ export default function ChatForm({ data, leave }) {
           <BiSend />
         </button>
       </form>
-      <footer className="text-green-400 w-full mx-auto p-1 bg-gray-900 text-center lg:h-0 border-t-2 border-green-500 lg:mt-20">
+      <footer className="text-green-400 w-full mx-auto p-1 bg-gray-900 text-center lg:hidden">
         <span className="text-xs lg:text-xl">&copy; mernChatApp 2023</span>
       </footer>
     </div>

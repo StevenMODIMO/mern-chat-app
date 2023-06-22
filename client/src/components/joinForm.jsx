@@ -26,7 +26,7 @@ export default function JoinForm({ closeJoin }) {
   const handleForm = async (e) => {
     e.preventDefault();
     setLoading(true)
-    const response = await fetch("http://localhost:5000/api/app/chat/join", {
+    const response = await fetch("https://chat-server-d27s.onrender.com/api/app/chat/join", {
       method: "POST",
       body: JSON.stringify({ roomId: id, name: user.username }),
       headers: {
@@ -52,7 +52,7 @@ export default function JoinForm({ closeJoin }) {
   };
   return (
     <motion.div
-      className="absolute top-0 bg-zinc-800/95 h-full w-full lg:w-96"
+      className="absolute top-0 bg-zinc-800/95 h-full w-full"
       variants={container}
       initial="hidden"
       animate="visible"

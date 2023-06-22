@@ -28,7 +28,7 @@ export default function Signup() {
   const handleForm = async (e) => {
     e.preventDefault();
     setLoading(true)
-    const response = await fetch("http://localhost:5000/api/user/validate", {
+    const response = await fetch("https://chat-server-d27s.onrender.com/api/user/validate", {
       method: "POST",
       body: JSON.stringify({ username, email, password }),
       headers: {

@@ -28,7 +28,7 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
 
   useEffect(() => {
     const getUserRooms = async () => {
-      const response = await fetch("http://localhost:5000/api/app/chat", {
+      const response = await fetch("https://chat-server-d27s.onrender.com/api/app/chat", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },

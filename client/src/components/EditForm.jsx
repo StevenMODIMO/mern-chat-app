@@ -12,7 +12,7 @@ export default function EditForm({ close }) {
   const handleForm = async (e) => {
     e.preventDefault();
     const response = await fetch(
-      "http://localhost:5000/api/app/profile/update",
+      "https://chat-server-d27s.onrender.com/api/app/profile/update",
       {
         method: "POST",
         headers: {
@@ -46,7 +46,7 @@ export default function EditForm({ close }) {
         animate={{ scale: 1 }}
         transition={{ type: "spring", stiffness: 200 }}
         exit={{ scale: 0, transition: { stiffness: 0 } }}
-        className="absolute top-0 bg-zinc-800/95 h-full w-full md:top-12 md:w-96 md:ml-52 lg:ml-0 lg:w-96"
+        className="absolute top-0 bg-zinc-800/95 h-full w-full md:top-12 md:w-96 md:ml-52 lg:ml-0"
       >
         <div>
           <div

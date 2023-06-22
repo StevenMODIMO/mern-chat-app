@@ -5,7 +5,7 @@ import ChatForm from "../components/chatForm";
 import Intro from "../components/Intro";
 import { useAuth } from "../context/AuthContext";
 
-export const socket = io("http://localhost:5000");
+export const socket = io("https://chat-server-d27s.onrender.com");
 
 const joinRoom = (data) => {
   socket.emit("join-room", data);
@@ -16,7 +16,7 @@ export default function Chat() {
   const openForm = () => setShowForm(true);
   const closeForm = () => setShowForm(false);
   const [joined, setJoined] = useState([]);
-  const [data, setData] = useState("");
+  const [name, setData] = useState("");
   const { user } = useAuth();
 
   const handleData = (d) => {
@@ -27,7 +27,7 @@ export default function Chat() {
 
   useEffect(() => {
     const getJoinedRooms = async () => {
-      const response = await fetch("http://localhost:5000/api/app/chat/rooms", {
+      const response = await fetch("https://chat-server-d27s.onrender.com/api/app/chat/rooms", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -42,14 +42,14 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className={data ? "bg-gray-900 h-screen" : "h-screen"}>
-      {!data ? (
+    <div className={name ? " h-screen" : "h-screen"}>
+      {!name ? (
         <div>
           <Intro openForm={openForm} />
         </div>
       ) : (
         <div>
-          <ChatForm data={data} leave={leaveChat} />
+          <ChatForm name={name} leave={leaveChat} />
         </div>
       )}
 

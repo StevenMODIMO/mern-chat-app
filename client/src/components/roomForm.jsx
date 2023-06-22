@@ -24,7 +24,7 @@ export default function RoomForm({ closeForm }) {
   const handleForm = async (e) => {
     e.preventDefault();
     setLoading(true)
-    const response = await fetch("http://localhost:5000/api/app/chat/create", {
+    const response = await fetch("https://chat-server-d27s.onrender.com/api/app/chat/create", {
       method: "POST",
       body: JSON.stringify({ roomName: room }),
       headers: {
@@ -48,7 +48,7 @@ export default function RoomForm({ closeForm }) {
   };
   return (
     <motion.div
-      className="absolute top-0 bg-zinc-800/95 h-full w-full lg:w-96"
+      className="absolute top-0 bg-zinc-800/95 h-full w-full"
       variants={container}
       initial="hidden"
       animate="visible"

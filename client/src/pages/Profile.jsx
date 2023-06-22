@@ -29,7 +29,7 @@ export default function Profile() {
   useEffect(() => {
     const getUser = async () => {
       setLoading(true);
-      const response = await fetch("http://localhost:5000/api/app/profile", {
+      const response = await fetch("https://chat-server-d27s.onrender.com/api/app/profile", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -52,7 +52,7 @@ export default function Profile() {
 
   useEffect(() => {
     const getUserRooms = async () => {
-      const response = await fetch("http://localhost:5000/api/app/chat", {
+      const response = await fetch("https://chat-server-d27s.onrender.com/api/app/chat", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -68,7 +68,7 @@ export default function Profile() {
 
   const deleteAccount = async () => {
     const response = await fetch(
-      "http://localhost:5000/api/app/profile/delete",
+      "https://chat-server-d27s.onrender.com/api/app/profile/delete",
       {
         method: "DELETE",
         headers: {
@@ -87,7 +87,7 @@ export default function Profile() {
 
   useEffect(() => {
     const getJoinedRooms = async () => {
-      const response = await fetch("http://localhost:5000/api/app/chat/rooms", {
+      const response = await fetch("https://chat-server-d27s.onrender.com/api/app/chat/rooms", {
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
@@ -106,7 +106,7 @@ export default function Profile() {
   }, []);
 
   const deleteRoom = async (id) => {
-    await fetch(`http://localhost:5000/api/app/chat/delete/${id}`, {
+    await fetch(`https://chat-server-d27s.onrender.com/api/app/chat/delete/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${user.token}`,
@@ -118,7 +118,7 @@ export default function Profile() {
   };
 
   const leaveRoom = async (id) => {
-    await fetch(`http://localhost:5000/api/app/chat/delete/join/${id}`, {
+    await fetch(`https://chat-server-d27s.onrender.com/api/app/chat/delete/join/${id}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${user.token}`,
