@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { RiGroup2Fill } from "react-icons/ri";
 import { BsFillChatLeftTextFill } from "react-icons/bs";
 import { MdOutlinePrivacyTip } from "react-icons/md";
@@ -7,8 +8,11 @@ import { motion } from "framer-motion";
 import { CgProfile } from "react-icons/cg";
 import { IoIosCreate } from "react-icons/io";
 import { BsFillChatRightDotsFill, BsShareFill } from "react-icons/bs";
+import data from "@emoji-mart/data";
+import Picker from "@emoji-mart/react";
 
 export default function Landing() {
+  const [text, setText] = useState("");
   return (
     <div className="h-fit flex flex-col mt-10 md:items-center lg:mt-10">
       <section>
@@ -37,6 +41,25 @@ export default function Landing() {
           </motion.div>
         </main>
       </section>
+      <div>{text}</div>
+      <input
+        type="text"
+        className="border outline-none border-blue-500"
+        value={text}
+        onChange={(e) => setText(e.target.value)}
+      />
+      <Picker
+        data={data}
+        onEmojiSelect={(emoji) => setText(text + emoji.native)}
+        maxFrequentRows={0}
+        searchPosition="none"
+        theme="dark"
+        previewPosition="none"
+        icons="solid"
+        emojiSize="20"
+        perLine="6"
+        rows={4}
+      />
     </div>
   );
 }

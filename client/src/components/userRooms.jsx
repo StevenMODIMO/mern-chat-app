@@ -40,11 +40,14 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
       }
     };
     getUserRooms();
-  }, [userRooms]);
+  }, []);
 
   return (
     <motion.div>
-      <header className="flex cursor-pointer justify-end text-4xl text-green-500 md:text-5xl lg:hidden" onClick={close}>
+      <header
+        className="flex cursor-pointer justify-end text-4xl text-green-500 md:text-5xl lg:hidden"
+        onClick={close}
+      >
         <FaTimes />
       </header>
       {Open && (
@@ -82,11 +85,13 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
             >
               <TbMoodSuprised className="text-8xl" />
             </div>
-          </section> 
+          </section>
         ) : (
-          <div className="text-2xl text-center text-green-500 border-b-2 border-green-500 mt-3">Chat Rooms</div>
+          <div className="text-2xl text-center text-green-500 border-b-2 border-green-500 mt-3">
+            Chat Rooms
+          </div>
         )}
-        {userRooms.map((room) => {  
+        {userRooms.map((room) => {
           return (
             <div
               key={room._id}
@@ -106,9 +111,13 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
                   alt="avatar"
                 />
                 <section>
-                <div className="text-2xl text-green-500">{room.roomName}</div>
-                <div className="text-xs text-green-500">{room.chats.length} Chats</div>
-                <div className="text-xs text-green-500">{room.users.length} Members</div>
+                  <div className="text-2xl text-green-500">{room.roomName}</div>
+                  <div className="text-xs text-green-500">
+                    {room.chats.length} Chats
+                  </div>
+                  <div className="text-xs text-green-500">
+                    {room.users.length} Members
+                  </div>
                 </section>
               </main>
               <div
@@ -128,7 +137,7 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
           return (
             <div
               key={room._id}
-              className="flex justify-between bg-zinc-800/80 m-2 p-2 rounded md:p-0"
+              className="flex justify-between bg-zinc-800/80 lg:hover:bg-zinc-700 m-2 p-2 rounded cursor-pointer md:p-0"
             >
               <main
                 onClick={() => {
@@ -139,11 +148,19 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
                 className="flex items-center cursor-pointer gap-2 md:w-40"
               >
                 <img
-                  className="shadow-sm shadow-zinc-900 rounded-full mt-3 md:h-10"
+                  className="shadow-sm shadow-zinc-900 rounded-sm h-10 -mt-2 md:h-10"
                   src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=50&radius=10`}
                   alt="avatar"
                 />
-                <div>{room.roomName}</div>
+                <section>
+                  <div className="text-2xl text-green-500">{room.roomName}</div>
+                  <div className="text-xs text-green-500">
+                    {room.chats.length} Chats
+                  </div>
+                  <div className="text-xs text-green-500">
+                    {room.users.length} Members
+                  </div>
+                </section>
               </main>
             </div>
           );

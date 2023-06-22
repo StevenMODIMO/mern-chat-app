@@ -299,7 +299,7 @@ export default function Profile() {
                 <>
                   {joined.map((room) => {
                     return (
-                      <div>
+                      <div key={room._id}>
                         <h1 className="text-center underline text-2xl text-green-500">
                           Rooms you joined
                         </h1>
