@@ -42,7 +42,7 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className="h-screen">
+    <div className={data ? "bg-gray-900 h-screen" : "h-screen"}>
       {!data ? (
         <div>
           <Intro openForm={openForm} />
@@ -56,8 +56,8 @@ export default function Chat() {
       <div
         className={
           showForm
-            ? "absolute top-0 h-full overflow-scroll w-full bg-gray-900 rounded lg:flex justify-center items-center overflow-x-hidden"
-            : "hidden lg:block w-96 bg-gray-900 -mt-80 h-full rounded py-3"
+            ? "transition-all duration-300 ease-in-out absolute top-0 left-0 h-full overflow-scroll w-full bg-gray-900 rounded"
+            : "transition-all duration-300 ease-in-out absolute top-0 -left-full h-full  w-full bg-gray-900 rounded lg:left-0 lg:w-80 lg:top-12"
         }
       >
         <UserRooms

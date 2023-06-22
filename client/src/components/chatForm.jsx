@@ -80,7 +80,7 @@ export default function ChatForm({ data, leave }) {
   }, [messageList]);
 
   return (
-    <div className="bg-gray-900 h-fit md:h-0 lg:w-3/6 mx-auto">
+    <div className="bg-gray-900 h-fit md:h-0 lg:w-4/4 lg:h-full lg:ml-80">
       <header className="flex justify-between items-center  bg-gray-900">
         <div className="flex text-xl items-center gap-1 ml-3">
           <img
@@ -158,7 +158,7 @@ export default function ChatForm({ data, leave }) {
       </div>
       <form
         onSubmit={sendMessage}
-        className="mx-1 rounded-lg flex justify-between border border-green-500 bg-gray-700 text-xl"
+        className="mx-1 rounded-lg flex justify-between border border-green-500 bg-gray-700 text-xl lg:mt-20"
       >
         <label
           className="text-green-500 mt-1 text-2xl ml-1"
@@ -177,8 +177,8 @@ export default function ChatForm({ data, leave }) {
           <BiSend />
         </button>
       </form>
-      <footer className="text-green-400 w-full mx-auto p-1 bg-gray-900 text-center">
-        <span className="text-xs">&copy; mernChatApp 2023</span>
+      <footer className="text-green-400 w-full mx-auto p-1 bg-gray-900 text-center lg:h-0 border-t-2 border-green-500 lg:mt-20">
+        <span className="text-xs lg:text-xl">&copy; mernChatApp 2023</span>
       </footer>
     </div>
   );
