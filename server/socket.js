@@ -4,7 +4,7 @@ const Chat = require("./models/chatModel")
 module.exports = function(server) {
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:5173",
+        origin: "https://brilliant-cuchufli-cc2e4b.netlify.app",
         methods: ["GET", "POST"]
     }
 })
