@@ -11,6 +11,7 @@ import {
   AiOutlineHome,
   AiOutlineLogin,
   AiOutlineUserAdd,
+  AiOutlineUser
 } from "react-icons/ai";
 
 export default function Navbar({ theme, setTheme }) {
@@ -129,10 +130,17 @@ export default function Navbar({ theme, setTheme }) {
             </>
           )}
           {user && (
-            <li className="flex cursor-pointer" onClick={logoutEffect}>
+            <>
+            <li className="flex">
+                <AiOutlineUser className="mt-1" />
+                <NavLink to="/profile" onClick={closePanel}>
+                  <h1>Profile</h1>
+                </NavLink>
+              </li>
+            <li className="flex" onClick={logoutEffect}>
               <AiOutlineLogin className="mt-1" />
               <h1>Log Out</h1>
-            </li>
+            </li></>
           )}
         </ul>
       </header>
@@ -173,10 +181,17 @@ export default function Navbar({ theme, setTheme }) {
                 </>
               )}
               {user && (
+                <>
+                <li className="flex">
+                    <AiOutlineUser className="mt-1" />
+                    <NavLink to="/profile" onClick={closePanel}>
+                      <h1>Profile</h1>
+                    </NavLink>
+                  </li>
                 <li className="flex" onClick={logoutEffect}>
                   <AiOutlineLogin className="mt-1" />
                   <h1>Log Out</h1>
-                </li>
+                </li></>
               )}
             </motion.ul>
           )}

@@ -54,20 +54,19 @@ export default function Login() {
   };
 
   return (
-    <div className="h-screen -mt-2 lg:mt-20 bg-gray-900 text-black">
-      <header className="text-center text-white text-3xl mt-2">
+    <div className="mt-32">
+      <header>
         <h2>Login Form</h2>
       </header>
-      <main className="flex flex-col items-center">
-        <motion.form
+      <main>
+        <form
           variants={container}
           initial="hidden"
           animate="visible"
-          className="flex flex-col items-center gap-2 text-xl mt-2 p-4 bg-gray-800 rounded"
           onSubmit={handleForm}
           onFocus={() => setError(null)}
         >
-          <label htmlFor="Email" className="text-blue-500">
+          <label htmlFor="Email">
             Enter your email:
           </label>
           <input
@@ -76,9 +75,8 @@ export default function Login() {
             type="text"
             placeholder="Enter your Email"
             autoComplete="off"
-            className="border-2 border-blue-500 rounded shadow-sm mb-4 outline-none w-72 px-2 py-1"
           />
-          <label htmlFor="password" className="text-blue-500">
+          <label htmlFor="password">
             Enter your password:
           </label>
           <input
@@ -86,34 +84,26 @@ export default function Login() {
             onChange={(e) => setPassword(e.target.value)}
             type="password"
             placeholder="Enter your Password"
-            className="border-2 border-blue-500 rounded shadow-sm mb-4 outline-none w-72 px-2 py-1"
           />
           {loading ? (
             <div>
               <Loader />
             </div>
           ) : (
-            <button className="bg-blue-500 px-4 py-2 rounded">
+            <button>
               Login
             </button>
           )}
-        </motion.form>
-        <AnimatePresence>
+        </form>
           {error && (
-            <motion.div
-              className="bg-red-500 text-center mx-auto p-2 text-black rounded"
-              initial={{ scale: 0.8 }}
-              animate={{ scale: 1 }}
-              transition={{ type: "spring", stiffness: 500 }}
-              exit={{ scale: 0, transition: { stiffness: 0 } }}
+            <div
             >
               {error}
-            </motion.div>
+            </div>
           )}
-        </AnimatePresence>
-        <div className="flex gap-2 text-white  justify-center mt-4">
+        <div>
           <h2>Don't have an account?</h2>
-          <NavLink className="underline" to="/signup">
+          <NavLink to="/signup">
             Signup
           </NavLink>
         </div>
