@@ -1,159 +1,187 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import Logo from "../assets/chat-dots.svg";
-import {
-  AiOutlineBars,
-  AiOutlineLogin,
-  AiFillEdit,
-  AiOutlineLogout,
-  AiOutlineUserAdd,
-  AiOutlineUser,
-} from "react-icons/ai";
-import {
-  BsChatRightTextFill,
-  BsFacebook,
-  BsTwitter,
-  BsInstagram,
-} from "react-icons/bs";
-import { BiHomeAlt } from "react-icons/bi";
 import { useAuth } from "../context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { useMediaQuery } from "@chakra-ui/react";
-import { FaTimes, FaTiktok } from "react-icons/fa";
-import { MdDeveloperMode } from "react-icons/md";
+import { HiBars3BottomRight } from "react-icons/hi2";
+import { BiMoon, BiSun } from "react-icons/bi";
+import { BsFillChatQuoteFill } from "react-icons/bs";
+import { FaTimes } from "react-icons/fa";
+import {
+  AiOutlineHome,
+  AiOutlineLogin,
+  AiOutlineUserAdd,
+} from "react-icons/ai";
 
-export default function Navbar() {
-  const [isLargerThan768] = useMediaQuery("(min-width: 768px)");
+export default function Navbar({ theme, setTheme }) {
   const { user, dispatch } = useAuth();
   const [showLinks, setShowLinks] = useState(false);
   const togglePanel = () => setShowLinks(!showLinks);
   const closePanel = () => setShowLinks(false);
+
+  const toggleTheme = () => {
+    const newTheme = theme === "dark" ? "light" : "dark";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
+
+  useEffect(() => {
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme) {
+      setTheme(storedTheme);
+    }
+  }, []);
+
   const logout = () => {
     localStorage.removeItem("user");
     dispatch({ type: "LOGOUT" });
   };
+
   const logoutEffect = () => {
     logout();
-    closePanel();
+    setShowLinks(false);
   };
+
+  // Animation Variants
+  const navVariants = {
+    hidden: {
+      opacity: 0,
+      scale: 0.8,
+      transition: {
+        duration: 0.2,
+        ease: "easeInOut",
+      },
+    },
+    visible: {
+      type: "spring",
+      opacity: 1,
+      scale: 1,
+      transition: {
+        duration: 0.3,
+        ease: "easeInOut",
+      },
+    },
+  };
+
   return (
-    <>
-      <nav className="rounded md:flex justify-between md:border-b border-black md:text-green-500 md:bg-black md:rounded-none">
-        <header
-          className={
-            showLinks
-              ? "flex justify-between bg-gray-900 text-green-500 border-b p-2 border-black"
-              : "flex justify-between border-b p-2 border-black md:border-hidden md:bg-gray-900 md:w-2/4 md:pb-4"
-          }
-        >
-          <div className="flex gap-1 ml-3">
-            <img src={Logo} alt="logo" className="w-6 mt-1 md:mt-1" />
-            <h1 className="text-lg ">mernChatApp</h1>
+    <nav className="fixed w-full">
+      <header
+        className={
+          theme === "dark"
+            ? "flex justify-between text-xl bg-white p-2 m-2 rounded transition-all duration-700 ease-in-out"
+            : "flex justify-between text-xl bg-black text-white p-2 m-2 rounded transition-all duration-700 ease-in-out"
+        }
+      >
+        <NavLink to="/" className="flex">
+          <section className="flex gap-1">
+            <BsFillChatQuoteFill className="mt-1" />
+            <h1>mernChat</h1>
+          </section>
+          <div className="hidden lg:block" onClick={toggleTheme}>
+            {theme === "dark" ? (
+              <BiSun className="mt-1" />
+            ) : (
+              <BiMoon className="mt-1" />
+            )}
           </div>
-          <div
-            onClick={togglePanel}
-            className="text-3xl text-green-500 md:hidden"
-          >
-            {showLinks ? <FaTimes /> : <AiOutlineBars />}
+        </NavLink>
+        <section className="flex gap-4 lg:hidden">
+          <div className="flex" onClick={toggleTheme}>
+            {theme === "dark" ? (
+              <BiSun className="mt-1" />
+            ) : (
+              <BiMoon className="mt-1" />
+            )}
           </div>
-        </header>
-        <main>
-          <nav
-            className={
-              showLinks
-                ? "bg-black h-screen transition-all duration-300 ease-in-out"
-                : "bg-black h-0 overflow-hidden transition-all duration-300 ease-in-out md:overflow-visible"
-            }
-          >
-            {!user ? (
-              <div className="text-xl pt-2 text-green-500 md:flex gap-3 md:text-lg">
-                <section
-                  onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black"
-                >
-                  <BiHomeAlt className="mt-1" />
-                  <NavLink to="/">Home</NavLink>
-                </section>
-                <section
-                  onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black"
-                >
-                  <AiOutlineUserAdd className="mt-1" />
-                  <NavLink to="/signup">Sign Up</NavLink>
-                </section>
-                <section
-                  onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black md:mr-2"
-                >
-                  <AiOutlineLogin className="mt-1" />
-                  <NavLink to="/login">Login</NavLink>
-                </section>
+          <div onClick={togglePanel}>
+            {showLinks ? (
+              <div>
+                <FaTimes className="mt-1" />
               </div>
             ) : (
-              <div className="text-xl pt-2 text-green-500 md:flex gap-3 md:text-lg">
-                <section
-                  onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black"
-                >
-                  <BsChatRightTextFill className="mt-1" />
-                  <NavLink to="/chat">Chat</NavLink>
-                </section>
-                <section
-                  onClick={closePanel}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:bg-black"
-                >
-                  <AiOutlineUser className="mt-1" />
-                  <NavLink to="/profile">Profile</NavLink>
-                </section>
-                <section
-                  onClick={logoutEffect}
-                  className="flex gap-1 ml-2 mb-4 bg-gray-900 w-36 p-1 rounded sm:w-48 md:w-fit md:mr-2 cursor-pointer md:bg-black"
-                >
-                  <AiOutlineLogout className="mt-1" />
-                  <h1>Logout</h1>
-                </section>
+              <div>
+                <HiBars3BottomRight className="mt-1" />
               </div>
             )}
-            <main className="text-green-500  mb-5 md:hidden">
-              <header className="ml-2 border-b-2 w-fit border-green-500 sm:w-44">
-                <h1>Upcoming Features</h1>
-              </header>
-              <div className="text-xl ml-8 mt-2">
-                <section className="flex gap-1">
-                  <MdDeveloperMode className="mt-1" />
-                  <h1>Developers API</h1>
-                </section>
-              </div>
-            </main>
-            <main className="text-green-500 md:hidden">
-              <header className="ml-2 border-b-2 w-fit border-green-500 sm:w-44">
-                <h1>Follow Us</h1>
-              </header>
-              <div className="">
-                <section className="flex gap-1 text-xl mt-2 ml-6 mb-4">
-                  <BsFacebook className="mt-1" />
-                  <h1>facebook</h1>
-                </section>
-                <section className="flex gap-1 text-xl ml-6 mb-4">
-                  <BsTwitter className="mt-1" />
-                  <h1>twitter</h1>
-                </section>
-                <section className="flex gap-1 text-xl ml-6 mb-4">
-                  <BsInstagram className="mt-1" />
-                  <h1>instagram</h1>
-                </section>
-                <section className="flex gap-1 text-xl ml-6 mb-4">
-                  <FaTiktok className="mt-1 text-2xl" />
-                  <h1>tiktok</h1>
-                </section>
-              </div>
-            </main>
-            <footer className="text-green-400 rounded w-fit mx-auto p-1 bg-gray-900 text-center md:hidden">
-              <span className="text-xs">&copy; mernChatApp 2023</span>
-            </footer>
-          </nav>
-        </main>
-      </nav>
-    </>
+          </div>
+        </section>
+        <ul className="hidden lg:flex gap-6">
+          <li className="flex gap-1">
+            <AiOutlineHome className="mt-1" />
+            <NavLink to="/">
+              <h1>Home</h1>
+            </NavLink>
+          </li>
+          {!user && (
+            <>
+              <li className="flex">
+                <AiOutlineUserAdd className="mt-1" />
+                <NavLink to="/signup">
+                  <h1>Sign Up</h1>
+                </NavLink>
+              </li>
+              <li className="flex">
+                <AiOutlineLogin className="mt-1" />
+                <NavLink to="/login">
+                  <h1>Log In</h1>
+                </NavLink>
+              </li>
+            </>
+          )}
+          {user && (
+            <li className="flex cursor-pointer" onClick={logoutEffect}>
+              <AiOutlineLogin className="mt-1" />
+              <h1>Log Out</h1>
+            </li>
+          )}
+        </ul>
+      </header>
+      <div className="lg:hidden">
+        <AnimatePresence>
+          {showLinks && (
+            <motion.ul
+              className={
+                theme === "dark"
+                  ? "text-xl bg-white p-2 m-2 rounded  h-96 "
+                  : "text-xl bg-black text-white p-2 m-2 rounded  h-96 "
+              }
+              initial={{ y: 100 }}
+              animate={{ y: 0 }}
+              transition={{ duration: 0.3 }}
+              exit={{ y: 900 }}
+            >
+              <li className="flex">
+                <AiOutlineHome className="mt-1" />
+                <NavLink to="/" onClick={closePanel}>
+                  <h1>Home</h1>
+                </NavLink>
+              </li>
+              {!user && (
+                <>
+                  <li className="flex">
+                    <AiOutlineUserAdd className="mt-1" />
+                    <NavLink to="/signup" onClick={closePanel}>
+                      <h1>Sign Up</h1>
+                    </NavLink>
+                  </li>
+                  <li className="flex">
+                    <AiOutlineLogin className="mt-1" />
+                    <NavLink to="/login" onClick={closePanel}>
+                      <h1>Log In</h1>
+                    </NavLink>
+                  </li>
+                </>
+              )}
+              {user && (
+                <li className="flex" onClick={logoutEffect}>
+                  <AiOutlineLogin className="mt-1" />
+                  <h1>Log Out</h1>
+                </li>
+              )}
+            </motion.ul>
+          )}
+        </AnimatePresence>
+      </div>
+    </nav>
   );
 }
