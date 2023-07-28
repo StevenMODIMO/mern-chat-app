@@ -11,7 +11,7 @@ import {
   AiOutlineHome,
   AiOutlineLogin,
   AiOutlineUserAdd,
-  AiOutlineUser
+  AiOutlineUser,
 } from "react-icons/ai";
 
 export default function Navbar({ theme, setTheme }) {
@@ -73,11 +73,14 @@ export default function Navbar({ theme, setTheme }) {
             : "flex justify-between text-xl bg-black text-white p-2 m-2 rounded transition-all duration-700 ease-in-out"
         }
       >
-        <NavLink to="/" className="flex">
-          <section className="flex gap-1">
-            <BsFillChatQuoteFill className="mt-1" />
-            <h1>mernChat</h1>
-          </section>
+        <section className="flex">
+          <div to="/" className="flex">
+            <section className="flex gap-1">
+              <BsFillChatQuoteFill className="mt-1" />
+              <h1>mernChat</h1>
+            </section>
+          </div>
+
           <div className="hidden lg:block" onClick={toggleTheme}>
             {theme === "dark" ? (
               <BiSun className="mt-1" />
@@ -85,7 +88,7 @@ export default function Navbar({ theme, setTheme }) {
               <BiMoon className="mt-1" />
             )}
           </div>
-        </NavLink>
+        </section>
         <section className="flex gap-4 lg:hidden">
           <div className="flex" onClick={toggleTheme}>
             {theme === "dark" ? (
@@ -107,12 +110,6 @@ export default function Navbar({ theme, setTheme }) {
           </div>
         </section>
         <ul className="hidden lg:flex gap-6">
-          <li className="flex gap-1">
-            <AiOutlineHome className="mt-1" />
-            <NavLink to="/">
-              <h1>Home</h1>
-            </NavLink>
-          </li>
           {!user && (
             <>
               <li className="flex">
@@ -131,16 +128,23 @@ export default function Navbar({ theme, setTheme }) {
           )}
           {user && (
             <>
-            <li className="flex">
+              <li className="flex">
+                <AiOutlineHome className="mt-1" />
+                <NavLink to="/chat" onClick={closePanel}>
+                  <h1>Chat</h1>
+                </NavLink>
+              </li>
+              <li className="flex">
                 <AiOutlineUser className="mt-1" />
                 <NavLink to="/profile" onClick={closePanel}>
                   <h1>Profile</h1>
                 </NavLink>
               </li>
-            <li className="flex" onClick={logoutEffect}>
-              <AiOutlineLogin className="mt-1" />
-              <h1>Log Out</h1>
-            </li></>
+              <li className="flex" onClick={logoutEffect}>
+                <AiOutlineLogin className="mt-1" />
+                <h1>Log Out</h1>
+              </li>
+            </>
           )}
         </ul>
       </header>
@@ -158,12 +162,6 @@ export default function Navbar({ theme, setTheme }) {
               transition={{ duration: 0.3 }}
               exit={{ y: 900 }}
             >
-              <li className="flex">
-                <AiOutlineHome className="mt-1" />
-                <NavLink to="/" onClick={closePanel}>
-                  <h1>Home</h1>
-                </NavLink>
-              </li>
               {!user && (
                 <>
                   <li className="flex">
@@ -182,16 +180,23 @@ export default function Navbar({ theme, setTheme }) {
               )}
               {user && (
                 <>
-                <li className="flex">
+                  <li className="flex">
+                    <AiOutlineHome className="mt-1" />
+                    <NavLink to="/chat" onClick={closePanel}>
+                      <h1>Chat</h1>
+                    </NavLink>
+                  </li>
+                  <li className="flex">
                     <AiOutlineUser className="mt-1" />
                     <NavLink to="/profile" onClick={closePanel}>
                       <h1>Profile</h1>
                     </NavLink>
                   </li>
-                <li className="flex" onClick={logoutEffect}>
-                  <AiOutlineLogin className="mt-1" />
-                  <h1>Log Out</h1>
-                </li></>
+                  <li className="flex" onClick={logoutEffect}>
+                    <AiOutlineLogin className="mt-1" />
+                    <h1>Log Out</h1>
+                  </li>
+                </>
               )}
             </motion.ul>
           )}
