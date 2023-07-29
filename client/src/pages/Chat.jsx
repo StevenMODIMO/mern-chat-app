@@ -42,7 +42,7 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className={name ? " h-screen" : "h-screen"}>
+    <div className={name ? " h-screen mt-32" : "h-screen mt-32"}>
       {!name ? (
         <div>
           <Intro openForm={openForm} />

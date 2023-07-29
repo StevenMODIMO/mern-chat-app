@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, NavLink } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { BsFillKeyFill } from "react-icons/bs";
 import Loader from "../components/Loader";
-import { AiOutlineUser, AiOutlineMail } from "react-icons/ai";
+import { AiOutlineUser, AiOutlineMail, AiOutlineLink } from "react-icons/ai";
 
 const container = {
   hidden: { opacity: 0, scale: 0 },
@@ -117,6 +117,13 @@ export default function Signup() {
           )}
         </form>
         {error && <div className="text-red-500 flex justify-center">{error}</div>}
+        <div className="text-lg flex gap-2 m-4">
+          <h2>Already have an account?</h2>
+          <NavLink to="/login" className="flex gap-1">
+            <h1 className="underline">Login</h1>
+            <AiOutlineLink className="mt-1" />
+          </NavLink>
+        </div>
       </main>
     </div>
   );

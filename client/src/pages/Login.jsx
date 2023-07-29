@@ -113,7 +113,7 @@ export default function Login({theme}) {
         <div className="text-lg flex gap-2 m-4">
           <h2>Don't have an account?</h2>
           <NavLink to="/signup" className="flex gap-1">
-            <h1>Signup</h1>
+            <h1 className="underline">Signup</h1>
             <AiOutlineLink className="mt-1" />
           </NavLink>
         </div>

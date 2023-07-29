@@ -24,23 +24,28 @@ export default function App() {
         <Routes>
           <Route
             path="/signup"
-            element={!user ? <Signup theme={theme} /> : <Navigate to="/chat" />}
+            element={!user ? <Signup theme={theme} /> : <Navigate to="/login" />}
           />
           <Route
             path="/login"
-            element={!user ? <Login theme={theme} /> : <Navigate to="/chat" />}
+            element={!user ? <Login theme={theme} /> : <Navigate to="/login" />}
           />
           <Route
             path="/confirm"
             element={
-              !user ? <Confirm theme={theme} /> : <Navigate to="/chat" />
+              !user ? <Confirm theme={theme} /> : <Navigate to="/login" />
             }
           />
           <Route
             path="/chat"
-            element={user ? <Chat theme={theme} /> : <Navigate to="/login" />}
+            element={user ? <Chat theme={theme} /> : <Navigate to="/chat" />}
           />
-          <Route path="/profile" element={user && <Profile theme={theme} />} />
+          <Route
+            path="/profile"
+            element={
+              user ? <Profile theme={theme} /> : <Navigate to="/profile" />
+            }
+          />
         </Routes>
       </BrowserRouter>
     </div>
