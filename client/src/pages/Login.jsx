@@ -53,7 +53,7 @@ export default function Login({theme}) {
       setError(null);
       localStorage.setItem("user", JSON.stringify(json));
       dispatch({ type: "LOGIN", payload: json });
-      navigate("/chat");
+      navigate("/");
     }
     setLoading(false);
   };

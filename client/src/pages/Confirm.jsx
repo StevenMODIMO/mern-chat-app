@@ -51,7 +51,7 @@ export default function Confirm() {
       localStorage.removeItem("OTV");
       localStorage.setItem("user", JSON.stringify(json));
       dispatch({ type: "LOGIN", payload: json });
-      navigate("/chat");
+      navigate("/");
     }
     setLoading(false);
   };

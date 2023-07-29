@@ -43,27 +43,6 @@ export default function Navbar({ theme, setTheme }) {
     setShowLinks(false);
   };
 
-  // Animation Variants
-  const navVariants = {
-    hidden: {
-      opacity: 0,
-      scale: 0.8,
-      transition: {
-        duration: 0.2,
-        ease: "easeInOut",
-      },
-    },
-    visible: {
-      type: "spring",
-      opacity: 1,
-      scale: 1,
-      transition: {
-        duration: 0.3,
-        ease: "easeInOut",
-      },
-    },
-  };
-
   return (
     <nav className="fixed w-full">
       <header
@@ -130,7 +109,7 @@ export default function Navbar({ theme, setTheme }) {
             <>
               <li className="flex">
                 <AiOutlineHome className="mt-1" />
-                <NavLink to="/chat" onClick={closePanel}>
+                <NavLink to="/" onClick={closePanel}>
                   <h1>Chat</h1>
                 </NavLink>
               </li>
@@ -182,7 +161,7 @@ export default function Navbar({ theme, setTheme }) {
                 <>
                   <li className="flex">
                     <AiOutlineHome className="mt-1" />
-                    <NavLink to="/chat" onClick={closePanel}>
+                    <NavLink to="/" onClick={closePanel}>
                       <h1>Chat</h1>
                     </NavLink>
                   </li>

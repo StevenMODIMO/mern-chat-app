@@ -24,26 +24,24 @@ export default function App() {
         <Routes>
           <Route
             path="/signup"
-            element={!user ? <Signup theme={theme} /> : <Navigate to="/login" />}
+            element={!user ? <Signup theme={theme} /> : <Navigate to="/" />}
           />
           <Route
             path="/login"
-            element={!user ? <Login theme={theme} /> : <Navigate to="/login" />}
+            element={!user ? <Login theme={theme} /> : <Navigate to="/" />}
           />
           <Route
             path="/confirm"
-            element={
-              !user ? <Confirm theme={theme} /> : <Navigate to="/login" />
-            }
+            element={!user ? <Confirm theme={theme} /> : <Navigate to="/" />}
           />
           <Route
-            path="/chat"
-            element={user ? <Chat theme={theme} /> : <Navigate to="/chat" />}
+            path="/"
+            element={user ? <Chat theme={theme} /> : <Navigate to="/login" />}
           />
           <Route
             path="/profile"
             element={
-              user ? <Profile theme={theme} /> : <Navigate to="/profile" />
+              user ? <Profile theme={theme} /> : <Navigate to="/login" />
             }
           />
         </Routes>

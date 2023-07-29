@@ -1,28 +1,20 @@
 import { useState, useEffect } from "react";
 import { useAuth } from "../context/AuthContext";
-import { FaUserEdit } from "react-icons/fa";
 import { FiAlertTriangle } from "react-icons/fi";
-import { MdOutlineMarkEmailUnread } from "react-icons/md";
-import { BiUserCircle } from "react-icons/bi";
-import { HiOutlineIdentification } from "react-icons/hi";
+import { MdOutlineMarkEmailUnread, MdOutlineExitToApp } from "react-icons/md";
+import { BiMessageSquareDetail, BiUserCircle } from "react-icons/bi";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import { MdOutlineExitToApp } from "react-icons/md";
 import { HiUserGroup } from "react-icons/hi";
-import { BiMessageSquareDetail } from "react-icons/bi";
-import { TbMoodSuprised } from "react-icons/tb";
+import { AiOutlineNumber } from "react-icons/ai";
 import { motion, AnimatePresence } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import EditForm from "../components/EditForm";
 import Loader from "../components/Loader";
 
 export default function Profile() {
-  const [modalOpen, setModalOpen] = useState(false);
   const [userInfo, setUserInfo] = useState({});
   const [loading, setLoading] = useState(null);
   const [userRooms, setUserRooms] = useState([]);
   const [joined, setJoined] = useState([]);
-  const toggleModal = () => setModalOpen(true);
-  const closeModal = () => setModalOpen(false);
   const { user, dispatch } = useAuth();
   const navigate = useNavigate();
 
@@ -153,8 +145,7 @@ export default function Profile() {
       ) : (
         <div className="text-xl">
           <div>
-            {modalOpen && <EditForm close={closeModal} />}
-            <section className="mx-6 rounded border">
+            <section className="mx-auto rounded border lg:flex flex-col items-center w-fit p-6">
               <div>
                 <div className="flex justify-center">
                   <div className="font-thin">
@@ -189,21 +180,22 @@ export default function Profile() {
 
                   <div className="flex gap-1 text-sm my-2 font-thin ml-6">
                     <span>
-                      <HiOutlineIdentification className="mt-1" />
+                      <AiOutlineNumber className="mt-1" />
                     </span>
                     <div>{userInfo._id}</div>
                   </div>
                 </section>
               </div>
             </section>
-            <div>
+            <div className="mx-4">
               <section>
-                <section>
+                <h1 className="font-bold">Your Rooms</h1>
+                <section className="lg:grid lg:grid-cols-4 lg:gap-2">
                   {userRooms.map((room) => {
-                    return (
+                    return ( 
                       <div
                         key={room._id}
-                        className="my-4 p-4 bg-white shadow-md rounded"
+                        className="my-4 p-4 bg-white shadow-md rounded lg:shadow-xl"
                       >
                         <main className="flex items-center">
                           <div className="mr-4">
@@ -217,7 +209,7 @@ export default function Profile() {
                               {room.roomName}
                             </h1>
                             <div className="flex items-center mt-2 text-sm">
-                              <HiOutlineIdentification className="mr-1" />
+                              <AiOutlineNumber className="mr-1" />
                               <div>{room._id}</div>
                             </div>
                             <section className="flex items-center mt-2 text-sm">
@@ -240,7 +232,8 @@ export default function Profile() {
                     );
                   })}
                 </section>
-                <section>
+                <h1 className="font-bold">Rooms You Joined</h1>
+                <section className="lg:grid lg:grid-cols-4 lg:gap-2">
                   <>
                     {joined.map((room) => {
                       return (
@@ -251,7 +244,7 @@ export default function Profile() {
                           <main className="flex items-center">
                             <div className="mr-4">
                               <img
-                                src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=50&radius=10`}
+                                src={`https://api.dicebear.com/5.x/identicon/svg?seed=${room.roomName}&size=25&radius=10`}
                                 alt="avatar"
                               />
                             </div>
@@ -260,7 +253,7 @@ export default function Profile() {
                                 {room.roomName}
                               </h1>
                               <div className="flex items-center mt-2 text-sm">
-                                <HiOutlineIdentification className="mr-1" />
+                                <AiOutlineNumber className="mr-1" />
                                 <div>{room._id}</div>
                               </div>
                               <section className="flex items-center mt-2 text-sm">
@@ -272,14 +265,13 @@ export default function Profile() {
                                 <div>Messages: {room.chats.length}</div>
                               </section>
                             </div>
-                            <div
-                              className="ml-auto cursor-pointer"
-                              onClick={() => leaveRoom(room._id)}
-                            >
-                              <MdOutlineExitToApp />
-                              <span>Leave Room</span>
-                            </div>
                           </main>
+                          <div
+                            className="flex justify-end cursor-pointer"
+                            onClick={() => leaveRoom(room._id)}
+                          >
+                            <MdOutlineExitToApp />
+                          </div>
                         </div>
                       );
                     })}
@@ -289,7 +281,7 @@ export default function Profile() {
             </div>
           </div>
 
-          <div className="mt-8">
+          <div className="mt-8 mx-4 lg:flex justify-center">
             <div className="bg-red-100 border border-red-300 p-4 rounded-lg">
               <div className="flex items-center mb-2">
                 <FiAlertTriangle className="mr-2 text-red-500" />
