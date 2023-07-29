@@ -189,10 +189,22 @@ export default function Profile() {
             </section>
             <div className="mx-4">
               <section>
-                <h1 className="font-bold">Your Rooms</h1>
+                {userRooms.length > 0 ? (
+                  <div className="relative flex flex-col items-center">
+                  <h1 className="font-bold m-6">Your Rooms</h1>
+                  <div className="h-1 w-12 bg-blue-500 ml-12 -mt-6"></div>
+                </div>
+                
+                ) : (
+                  <div>
+                    <h1 className="font-thin text-center m-6">
+                      Rooms You Create will appear here
+                    </h1>
+                  </div>
+                )}
                 <section className="lg:grid lg:grid-cols-4 lg:gap-2">
                   {userRooms.map((room) => {
-                    return ( 
+                    return (
                       <div
                         key={room._id}
                         className="my-4 p-4 bg-white shadow-md rounded lg:shadow-xl"
@@ -232,7 +244,9 @@ export default function Profile() {
                     );
                   })}
                 </section>
-                <h1 className="font-bold">Rooms You Joined</h1>
+                {joined.length > 0 && (
+                  <h1 className="font-bold">Rooms You Joined</h1>
+                )}
                 <section className="lg:grid lg:grid-cols-4 lg:gap-2">
                   <>
                     {joined.map((room) => {
