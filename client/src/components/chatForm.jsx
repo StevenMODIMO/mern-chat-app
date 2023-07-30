@@ -70,7 +70,7 @@ export default function ChatForm({ name, leave }) {
   }, [messageList]);
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg">
+    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
       <header className="p-4 border-b flex justify-between items-center">
         <div className="flex items-center">
           <img
