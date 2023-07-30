@@ -89,7 +89,14 @@ export default function ChatForm({ name, leave }) {
       </header>
       <div className="flex-1 p-4 overflow-y-auto" ref={chatContainerRef}>
         {messageList.map((name) => (
-          <main key={name._id} className="flex mb-4">
+          <main
+            key={name._id}
+            className={
+              name.sender == user.username
+                ? "flex justify-start"
+                : "flex justify-end mr-5"
+            }
+          >
             <section className="flex items-start space-x-2">
               <img
                 src={`https://api.dicebear.com/5.x/identicon/svg?seed=${name.sender}&size=50&radius=10`}
@@ -97,9 +104,7 @@ export default function ChatForm({ name, leave }) {
                 className="w-8 h-8 rounded-full"
               />
               <div className="flex flex-col">
-                <div className="text-gray-600 font-medium">
-                  {name.sender}
-                </div>
+                <div className="text-gray-600 font-medium">{name.sender}</div>
                 <div className="bg-gray-100 px-3 py-2 rounded-lg break-words max-w-[80%]">
                   {name.message}
                 </div>
