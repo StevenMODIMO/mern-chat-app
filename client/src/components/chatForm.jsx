@@ -21,16 +21,9 @@ export default function ChatForm({ name, leave }) {
       const messageData = {
         room: name,
         message: currentMessage,
-        time:
-          new Date().getFullYear() +
-          "/" +
-          month +
-          "/" +
-          new Date().getDate() +
-          "/" +
-          new Date(Date.now()).getHours() +
-          ":" +
-          new Date(Date.now()).getMinutes(),
+        time: `${new Date().getFullYear()}/${month}/${new Date().getDate()}/${new Date(
+          Date.now()
+        ).getHours()}:${new Date(Date.now()).getMinutes()}`,
         sender: user.username,
       };
       socket.emit("message", messageData);
@@ -49,26 +42,23 @@ export default function ChatForm({ name, leave }) {
   }, [socket]);
 
   useEffect(() => {
-    if (data) {
-      const fetchChatRooms = async () => {
-        const response = await fetch(
-          `https://chat-server-d27s.onrender.com/api/app/chat/${name}`,
-          {
-            headers: {
-              Authorization: `Bearer ${user.token}`,
-            },
-          }
-        );
-
-        const json = await response.json();
-
-        if (response.ok) {
-          setMessageList(json);
+    const fetchChatRooms = async () => {
+      const response = await fetch(
+        `https://chat-server-d27s.onrender.com/api/app/chat/${name}`,
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
         }
-      };
-      fetchChatRooms();
-    }
-  }, [name]);
+      );
+
+      if (response.ok) {
+        const json = await response.json();
+        setMessageList(json);
+      }
+    };
+    fetchChatRooms();
+  }, [name, user.token]);
 
   useEffect(() => {
     if (chatContainerRef.current) {
@@ -80,53 +70,49 @@ export default function ChatForm({ name, leave }) {
   }, [messageList]);
 
   return (
-    <div>
-      <header>
-        <div>
+    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg">
+      <header className="p-4 border-b flex justify-between items-center">
+        <div className="flex items-center">
           <img
             src={`https://api.dicebear.com/5.x/identicon/svg?seed=${name}&size=50&radius=10`}
             alt="avatar"
+            className="w-10 h-10 rounded-full"
           />
-          <div>{name}</div>
-          <span>
+          <div className="ml-2 font-medium text-lg">{name}</div>
+          <span className="ml-2">
             <Ping />
           </span>
         </div>
-        <div
-          onClick={leave}
-        >
-          <ImExit />
+        <div onClick={leave} className="cursor-pointer">
+          <ImExit className="text-red-600 text-lg" />
         </div>
       </header>
-      <div
-        ref={chatContainerRef}
-      >
-        {messageList.map((name) => {
-          return (
-            <main
-              key={name._id}
-            >
-              <div>
-                <section>
-                  <img
-                    src={`https://api.dicebear.com/5.x/identicon/svg?seed=${name.sender}&size=50&radius=10`}
-                    alt="avatar"
-                  />
-                </section>
-                <section >
-                  <div>{name.message}</div>
-                  <section>
-                  <div>
-                    {name.time}
-                  </div>
-                </section>
-                </section>
+      <div className="flex-1 p-4 overflow-y-auto" ref={chatContainerRef}>
+        {messageList.map((name) => (
+          <main key={name._id} className="flex mb-4">
+            <section className="flex items-start space-x-2">
+              <img
+                src={`https://api.dicebear.com/5.x/identicon/svg?seed=${name.sender}&size=50&radius=10`}
+                alt="avatar"
+                className="w-8 h-8 rounded-full"
+              />
+              <div className="flex flex-col">
+                <div className="text-gray-600 font-medium">
+                  {name.sender}
+                </div>
+                <div className="bg-gray-100 px-3 py-2 rounded-lg break-words max-w-[80%]">
+                  {name.message}
+                </div>
+                <div className="text-gray-400 text-xs mt-1">{name.time}</div>
               </div>
-            </main>
-          );
-        })}
+            </section>
+          </main>
+        ))}
       </div>
       <div
+        className={`${
+          picker ? "block" : "hidden"
+        } md:hidden bg-white p-4 shadow-md`}
       >
         <Picker
           data={data}
@@ -142,26 +128,29 @@ export default function ChatForm({ name, leave }) {
           perLine="6"
         />
       </div>
-      <form
-        onSubmit={sendMessage}
-      >
+      <form className="p-4 border-t flex items-center" onSubmit={sendMessage}>
         <label
           onClick={() => setPicker(!picker)}
+          className="cursor-pointer mr-2"
         >
-          <BsEmojiDizzy />
+          <BsEmojiDizzy className="text-gray-600 text-xl" />
         </label>
         <input
           type="text"
           value={currentMessage}
           onChange={(e) => setCurrentMessage(e.target.value)}
           placeholder="Message"
+          className="flex-1 border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:border-blue-300"
         />
-        <button>
-          <BiSend />
+        <button
+          type="submit"
+          className="ml-2 text-white bg-blue-500 hover:bg-blue-600 rounded-lg px-4 py-2"
+        >
+          <BiSend className="text-xl" />
         </button>
       </form>
-      <footer>
-        <span>&copy; mernChatApp 2023</span>
+      <footer className="p-4 border-t text-center text-gray-500 text-xs">
+        &copy; mernChatApp 2023
       </footer>
     </div>
   );

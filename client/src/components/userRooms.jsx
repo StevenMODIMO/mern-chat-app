@@ -7,6 +7,7 @@ import { motion } from "framer-motion";
 import RoomForm from "./roomForm";
 import ShareForm from "./shareForm";
 import JoinForm from "./joinForm";
+import Loader from "./Loader"
 
 export default function UserRooms({ close, joined, onData, joinRoom }) {
   const [showForm, setShowForm] = useState(false);
@@ -46,7 +47,7 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
   }, [userRooms]);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-4 h-96 md:w-96">
+    <div className="bg-white shadow-lg rounded-lg p-4 h-screen md:w-96">
       {Open && (
         <div>
           <ShareForm closePanel={closePanel} RoomID={id} />

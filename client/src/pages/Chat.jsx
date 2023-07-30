@@ -4,6 +4,7 @@ import UserRooms from "../components/userRooms";
 import ChatForm from "../components/chatForm";
 import Intro from "../components/Intro";
 import { useAuth } from "../context/AuthContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 export const socket = io("https://chat-server-d27s.onrender.com");
 
@@ -46,20 +47,49 @@ export default function Chat() {
 
   return (
     <div className="mt-16 max-h-[calc(100vh-4rem)] overflow-y-auto">
-      {!name ? (
-        <div>
+      {/* For Large Devices: Both components are always visible */}
+      <div className="hidden md:flex">
+        <UserRooms
+          close={closeForm}
+          joined={joined}
+          onData={handleData}
+          joinRoom={joinRoom}
+        />
+        <ChatForm name={name} leave={leaveChat} />
+      </div>
+
+      {/* For Small Devices: Show only one component based on the `name` state */}
+      <AnimatePresence>
+        {!name && (
+          <motion.div
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            key="userRooms"
+            className="md:hidden"
+          >
             <UserRooms
               close={closeForm}
               joined={joined}
               onData={handleData}
               joinRoom={joinRoom}
             />
-        </div>
-      ) : (
-        <div>
-          <ChatForm name={name} leave={leaveChat} />
-        </div>
-      )}
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {name && (
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 50 }}
+            key="chatForm"
+            className="md:hidden"
+          >
+            <ChatForm name={name} leave={leaveChat} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
