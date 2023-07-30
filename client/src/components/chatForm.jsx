@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { BiSend } from "react-icons/bi";
 import { ImExit } from "react-icons/im";
 import { socket } from "../pages/Chat";
@@ -8,12 +8,13 @@ import data from "@emoji-mart/data";
 import Picker from "@emoji-mart/react";
 import { BsEmojiDizzy } from "react-icons/bs";
 
-export default function ChatForm({ name, leave }) {
+export default function ChatForm({ name, leave, theme }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
   const [picker, setPicker] = useState(false);
   const { user } = useAuth();
   const chatContainerRef = useRef(null);
+
   const sendMessage = async (e) => {
     e.preventDefault();
     if (currentMessage !== "") {
@@ -70,7 +71,7 @@ export default function ChatForm({ name, leave }) {
   }, [messageList]);
 
   return (
-    <div className="flex flex-col h-full bg-white rounded-lg shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
+    <div className="flex flex-col mx-1 h-full bg-white rounded-lg shadow-lg">
       <header className="p-4 border-b flex justify-between items-center">
         <div className="flex items-center">
           <img
@@ -87,37 +88,39 @@ export default function ChatForm({ name, leave }) {
           <ImExit className="text-red-600 text-lg" />
         </div>
       </header>
-      <div className="flex-1 p-4 overflow-y-auto" ref={chatContainerRef}>
-        {messageList.map((name) => (
-          <main
-            key={name._id}
-            className={
-              name.sender == user.username
-                ? "flex justify-start"
-                : "flex justify-end mr-5"
-            }
-          >
-            <section className="flex items-start space-x-2">
-              <img
-                src={`https://api.dicebear.com/5.x/identicon/svg?seed=${name.sender}&size=50&radius=10`}
-                alt="avatar"
-                className="w-8 h-8 rounded-full"
-              />
-              <div className="flex flex-col">
-                <div className="text-gray-600 font-medium">{name.sender}</div>
-                <div className="bg-gray-100 px-3 py-2 rounded-lg break-words max-w-[80%]">
-                  {name.message}
+      <div className="flex-1 p-4">
+        <div className="h-64 overflow-y-auto">
+          {messageList.map((name) => (
+            <main
+              key={name._id}
+              className={
+                name.sender === user.username
+                  ? "flex justify-start"
+                  : "flex justify-end mr-5"
+              }
+            >
+              <section className="flex items-start space-x-2">
+                <img
+                  src={`https://api.dicebear.com/5.x/identicon/svg?seed=${name.sender}&size=50&radius=10`}
+                  alt="avatar"
+                  className="w-8 h-8 rounded-full"
+                />
+                <div className="flex flex-col">
+                  <div className="text-gray-600 font-medium">{name.sender}</div>
+                  <div className="bg-gray-100 px-3 py-2 rounded-lg break-words max-w-[80%]">
+                    {name.message}
+                  </div>
+                  <div className="text-gray-400 text-xs mt-1">{name.time}</div>
                 </div>
-                <div className="text-gray-400 text-xs mt-1">{name.time}</div>
-              </div>
-            </section>
-          </main>
-        ))}
+              </section>
+            </main>
+          ))}
+        </div>
       </div>
       <div
         className={`${
           picker ? "block" : "hidden"
-        } md:hidden bg-white p-4 shadow-md`}
+        } md:hidden p-4 absolute  right-0 z-10`}
       >
         <Picker
           data={data}

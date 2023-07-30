@@ -47,7 +47,7 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
   }, [userRooms]);
 
   return (
-    <div className="bg-white shadow-lg rounded-lg p-4 h-screen md:w-96">
+    <div className="bg-white shadow-lg mx-2 p-4 rounded-lg max-h-72 overflow-y-auto md:w-96">
       {Open && (
         <div>
           <ShareForm closePanel={closePanel} RoomID={id} />
@@ -76,9 +76,9 @@ export default function UserRooms({ close, joined, onData, joinRoom }) {
       </header>
     </div>
       <div>
-        {userRooms.length === 0 ? (
-          <section className="text-center font-bold">
-            <div>Oops!! No Room Chats</div>
+        {userRooms.length === 0 && joined.length === 0 ? (
+          <section className="text-center font-bold m-6">
+            <div>Chat Rooms Appear here</div>
           </section>
         ) : (
           <div className="font-semibold text-lg mb-2 text-end m-4">Chat Rooms</div>

@@ -12,7 +12,7 @@ const joinRoom = (data) => {
   socket.emit("join-room", data);
 };
 
-export default function Chat() {
+export default function Chat({theme}) {
   const [showForm, setShowForm] = useState(false);
   const openForm = () => setShowForm(true);
   const closeForm = () => setShowForm(false);
@@ -86,7 +86,7 @@ export default function Chat() {
             key="chatForm"
             className="md:hidden"
           >
-            <ChatForm name={name} leave={leaveChat} />
+            <ChatForm name={name} leave={leaveChat} theme={theme} />
           </motion.div>
         )}
       </AnimatePresence>
