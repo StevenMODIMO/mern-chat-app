@@ -52,7 +52,7 @@ export default function Navbar({ theme, setTheme }) {
             : "flex justify-between text-xl bg-white p-2 m-2 rounded transition-all duration-700 ease-in-out shadow-lg"
         }
       >
-        <section className="flex items-center">
+        <section className="flex gap-4 items-center">
           <div to="/" className="flex items-center">
             <section className="flex items-center gap-1">
               <BsFillChatQuoteFill className="text-blue-500" />

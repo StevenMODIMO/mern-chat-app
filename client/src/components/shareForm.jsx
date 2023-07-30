@@ -44,40 +44,70 @@ export default function ShareForm({ closePanel, RoomID }) {
     }
 
     if (response.ok) {
-      console.log(json);
-      setEmail(" ");
+      setEmail("");
       closePanel();
       setError(null);
     }
     setLoading(false);
   };
+
   return (
-    <div>
-      <div onClick={closePanel}>
-        <FaTimes />
-      </div>
-      <main>
-        <form onSubmit={handleForm} onFocus={() => setError(null)}>
-          <h1>Invite a Friend</h1>
-          <label>Room ID</label>
-          <input value={RoomID} type="text" readOnly />
-          <label>Enter Your Friend's Email</label>
-          <input
-            value={email}
-            type="email"
-            placeholder="Friend's Email address"
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          {loading ? (
-            <div>
-              <Loader />
-            </div>
-          ) : (
-            <button>Share Room</button>
-          )}
-        </form>
-        {error && <div>{error}</div>}
-      </main>
-    </div>
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={container}
+      >
+        <motion.div
+          className="bg-white rounded-lg p-6 mx-4 shadow-lg max-w-md w-full"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+        >
+          <div className="flex justify-end">
+            <button onClick={closePanel}>
+              <FaTimes />
+            </button>
+          </div>
+          <header>
+            <div className="text-xl font-bold mb-4">Invite a Friend</div>
+          </header>
+          <main>
+            <form onSubmit={handleForm} onFocus={() => setError(null)}>
+              <label className="block mb-2">Room ID</label>
+              <input
+                value={RoomID}
+                type="text"
+                readOnly
+                className="w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+              />
+              <label className="block mb-2">Enter Your Friend's Email</label>
+              <input
+                value={email}
+                type="email"
+                placeholder="Friend's Email address"
+                className="w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+              {error && <div className="text-red-500 text-center mb-2">{error}</div>} {/* Display error message */}
+              {loading ? (
+                <div className="flex justify-center">
+                  <Loader />
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition-colors"
+                >
+                  Share Room
+                </button>
+              )}
+            </form>
+          </main>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 }

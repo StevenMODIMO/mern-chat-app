@@ -145,10 +145,10 @@ export default function Profile() {
       ) : (
         <div className="text-xl">
           <div>
-            <section className="mx-auto rounded border lg:flex flex-col items-center w-fit p-6">
+            <section className="mx-auto rounded border lg:flex flex-col items-center w-fit p-6 bg-blue-100 border-blue-300">
               <div>
                 <div className="flex justify-center">
-                  <div className="font-thin">
+                  <div className="font-thin text-blue-700">
                     Welcome, <span>{userInfo.username}</span>
                   </div>
                 </div>
@@ -164,21 +164,21 @@ export default function Profile() {
 
               <div className="mt-6">
                 <section>
-                  <div className="flex gap-1 text-sm my-2 font-thin ml-6">
+                  <div className="flex gap-1 text-sm my-2 font-thin ml-6 text-blue-700">
                     <span>
                       <MdOutlineMarkEmailUnread className="mt-1" />
                     </span>
                     <div>{userInfo.email}</div>
                   </div>
 
-                  <div className="flex gap-1 text-sm my-2 font-thin ml-6">
+                  <div className="flex gap-1 text-sm my-2 font-thin ml-6 text-blue-700">
                     <span>
                       <BiUserCircle className="mt-1" />
                     </span>
                     <div>{userInfo.username}</div>
                   </div>
 
-                  <div className="flex gap-1 text-sm my-2 font-thin ml-6">
+                  <div className="flex gap-1 text-sm my-2 font-thin ml-6 text-blue-700">
                     <span>
                       <AiOutlineNumber className="mt-1" />
                     </span>
@@ -191,12 +191,12 @@ export default function Profile() {
               <section>
                 {userRooms.length > 0 ? (
                   <div className="relative flex flex-col items-center">
-                    <h1 className="font-bold m-6">Your Rooms</h1>
+                    <h1 className="font-bold m-6 text-blue-700">Your Rooms</h1>
                     <div className="h-1 w-12 bg-blue-500 ml-12 -mt-6"></div>
                   </div>
                 ) : (
                   <div>
-                    <h1 className="font-thin text-center m-6">
+                    <h1 className="font-thin text-center m-6 text-blue-700">
                       Rooms You Create will appear here
                     </h1>
                   </div>
@@ -216,18 +216,18 @@ export default function Profile() {
                             />
                           </div>
                           <div>
-                            <h1 className="text-lg font-bold">
+                            <h1 className="text-lg font-bold text-blue-700">
                               {room.roomName}
                             </h1>
-                            <div className="flex items-center mt-2 text-sm">
+                            <div className="flex items-center mt-2 text-sm text-blue-700">
                               <AiOutlineNumber className="mr-1" />
                               <div>{room._id}</div>
                             </div>
-                            <section className="flex items-center mt-2 text-sm">
+                            <section className="flex items-center mt-2 text-sm text-blue-700">
                               <HiUserGroup className="mr-1" />
                               <div>Members: {room.users.length}</div>
                             </section>
-                            <section className="flex items-center mt-2 text-sm">
+                            <section className="flex items-center mt-2 text-sm text-blue-700">
                               <BiMessageSquareDetail className="mr-1" />
                               <div>Messages: {room.chats.length}</div>
                             </section>
@@ -237,14 +237,14 @@ export default function Profile() {
                           className="flex justify-end cursor-pointer"
                           onClick={() => deleteRoom(room._id)}
                         >
-                          <RiDeleteBin6Line />
+                          <RiDeleteBin6Line className="text-red-600" />
                         </div>
                       </div>
                     );
                   })}
                 </section>
                 {joined.length > 0 && (
-                  <h1 className="font-bold">Rooms You Joined</h1>
+                  <h1 className="font-bold text-blue-700">Rooms You Joined</h1>
                 )}
                 <section className="lg:grid lg:grid-cols-4 lg:gap-2">
                   <>
@@ -262,18 +262,18 @@ export default function Profile() {
                               />
                             </div>
                             <div>
-                              <h1 className="text-lg font-bold">
+                              <h1 className="text-lg font-bold text-blue-700">
                                 {room.roomName}
                               </h1>
-                              <div className="flex items-center mt-2 text-sm">
+                              <div className="flex items-center mt-2 text-sm text-blue-700">
                                 <AiOutlineNumber className="mr-1" />
                                 <div>{room._id}</div>
                               </div>
-                              <section className="flex items-center mt-2 text-sm">
+                              <section className="flex items-center mt-2 text-sm text-blue-700">
                                 <HiUserGroup className="mr-1" />
                                 <div>Members: {room.users.length}</div>
                               </section>
-                              <section className="flex items-center mt-2 text-sm">
+                              <section className="flex items-center mt-2 text-sm text-blue-700">
                                 <BiMessageSquareDetail className="mr-1" />
                                 <div>Messages: {room.chats.length}</div>
                               </section>
@@ -283,7 +283,7 @@ export default function Profile() {
                             className="flex justify-end cursor-pointer"
                             onClick={() => leaveRoom(room._id)}
                           >
-                            <MdOutlineExitToApp />
+                            <MdOutlineExitToApp className="text-red-600" />
                           </div>
                         </div>
                       );

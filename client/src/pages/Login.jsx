@@ -19,7 +19,7 @@ const container = {
   },
 };
 
-export default function Login({theme}) {
+export default function Login({ theme }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(null);
@@ -59,11 +59,19 @@ export default function Login({theme}) {
   };
 
   return (
-    <div className="mt-32 flex flex-col items-center text-xl">
+    <div
+      className={`mt-16 flex flex-col items-center text-xl ${
+        theme === "dark" ? "text-white" : "text-black"
+      }`}
+    >
       <header className="font-bold">
         <h2>Login Form</h2>
       </header>
-      <main className={theme === "dark" ? "border shadow-xl mt-2 mx-4 py-2 bg-white" : "border shadow-xl mt-2 mx-4 py-2"}>
+      <main
+        className={`border shadow-xl mt-2 mx-4 py-2 ${
+          theme === "dark" ? "bg-gray-800" : "bg-white"
+        }`}
+      >
         <form
           variants={container}
           initial="hidden"
@@ -78,7 +86,11 @@ export default function Login({theme}) {
               <h1>Email:</h1>
             </label>
             <input
-              className="border border-black w-72 p-1 rounded-sm outline-none"
+              className={`border w-72 p-1 rounded-sm outline-none ${
+                theme === "dark"
+                  ? "border-white text-black"
+                  : "border-black focus:border-blue-500"
+              }`}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               type="email"
@@ -92,7 +104,11 @@ export default function Login({theme}) {
               <h1>Password:</h1>
             </label>
             <input
-              className="border border-black w-72 p-1 rounded-sm outline-none"
+              className={`border w-72 p-1 rounded-sm outline-none ${
+                theme === "dark"
+                  ? "border-white text-black"
+                  : "border-black focus:border-blue-500"
+              }`}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -104,15 +120,34 @@ export default function Login({theme}) {
               <Loader />
             </div>
           ) : (
-            <button className="bg-black text-white mx-auto p-1 rounded-sm">
+            <button
+              className={`mx-auto p-1 rounded-sm ${
+                theme === "dark"
+                  ? "bg-blue-700 text-white"
+                  : "bg-blue-500 text-white"
+              }`}
+            >
               Login
             </button>
           )}
         </form>
-        {error && <div className="text-red-500 flex justify-center">{error}</div>}
+        {error && (
+          <div
+            className={`text-red-500 flex justify-center ${
+              theme === "dark" ? "text-red-500" : "text-red-500"
+            }`}
+          >
+            {error}
+          </div>
+        )}
         <div className="text-lg flex gap-2 m-4">
           <h2>Don't have an account?</h2>
-          <NavLink to="/signup" className="flex gap-1">
+          <NavLink
+            to="/signup"
+            className={`flex gap-1 ${
+              theme === "dark" ? "text-blue-300" : "text-blue-700"
+            }`}
+          >
             <h1 className="underline">Signup</h1>
             <AiOutlineLink className="mt-1" />
           </NavLink>

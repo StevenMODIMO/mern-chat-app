@@ -40,7 +40,6 @@ export default function JoinForm({ closeJoin }) {
     const json = await response.json();
 
     if (response.ok) {
-      console.log(json);
       setError(null);
       setId("");
       closeJoin();
@@ -52,33 +51,60 @@ export default function JoinForm({ closeJoin }) {
     }
     setLoading(false);
   };
+
   return (
-    <div>
-      <section onClick={closeJoin}>
-        <FaTimes />
-      </section>
-      <header>
-        <div>Join a room</div>
-      </header>
-      <main>
-        <form onSubmit={handleForm} onFocus={() => setError(null)}>
-          <label>Enter Room Id</label>
-          <input
-            value={id}
-            type="text"
-            placeholder="Room Id"
-            onChange={(e) => setId(e.target.value)}
-          />
-          {loading ? (
-            <div className="mt-5">
-              <Loader />
-            </div>
-          ) : (
-            <button>Join Room</button>
-          )}
-        </form>
-        {error && <div>{error}</div>}
-      </main>
-    </div>
+    <AnimatePresence>
+      <motion.div
+        className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50"
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={container}
+      >
+        <motion.div
+          className="bg-white rounded-lg p-6 mx-4 shadow-lg max-w-md w-full"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -20 }}
+        >
+          <div className="flex justify-end">
+            <button onClick={closeJoin}>
+              <FaTimes />
+            </button>
+          </div>
+          <header>
+            <div className="text-xl font-bold mb-4">Join a Room</div>
+          </header>
+          <main>
+            <form onSubmit={handleForm} onFocus={() => setError(null)}>
+              <label htmlFor="roomId" className="block mb-2">
+                Enter Room Id
+              </label>
+              <input
+                id="roomId"
+                value={id}
+                type="text"
+                className="w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                placeholder="Room Id"
+                onChange={(e) => setId(e.target.value)}
+              />
+              {error && <div className="text-red-500 text-center mb-2">{error}</div>} {/* Display error message */}
+              {loading ? (
+                <div className="flex justify-center">
+                  <Loader />
+                </div>
+              ) : (
+                <button
+                  type="submit"
+                  className="w-full bg-blue-500 hover:bg-blue-600 text-white py-2 rounded-lg transition-colors"
+                >
+                  Join Room
+                </button>
+              )}
+            </form>
+          </main>
+        </motion.div>
+      </motion.div>
+    </AnimatePresence>
   );
 }
