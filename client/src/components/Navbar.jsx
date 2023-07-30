@@ -48,42 +48,44 @@ export default function Navbar({ theme, setTheme }) {
       <header
         className={
           theme === "dark"
-            ? "flex justify-between text-xl bg-white p-2 m-2 rounded transition-all duration-700 ease-in-out"
-            : "flex justify-between text-xl bg-black text-white p-2 m-2 rounded transition-all duration-700 ease-in-out"
+            ? "flex justify-between text-xl bg-gray-800 p-2 m-2 rounded transition-all duration-700 ease-in-out"
+            : "flex justify-between text-xl bg-white p-2 m-2 rounded transition-all duration-700 ease-in-out shadow-lg"
         }
       >
-        <section className="flex">
-          <div to="/" className="flex">
-            <section className="flex gap-1">
-              <BsFillChatQuoteFill className="mt-1" />
-              <h1>mernChat</h1>
+        <section className="flex items-center">
+          <div to="/" className="flex items-center">
+            <section className="flex items-center gap-1">
+              <BsFillChatQuoteFill className="text-blue-500" />
+              <h1 className={theme === "dark" ? "text-white" : "text-gray-800"}>
+                mernChat
+              </h1>
             </section>
           </div>
 
           <div className="hidden lg:block" onClick={toggleTheme}>
             {theme === "dark" ? (
-              <BiSun className="mt-1" />
+              <BiSun className="text-yellow-500" />
             ) : (
-              <BiMoon className="mt-1" />
+              <BiMoon className="text-blue-500" />
             )}
           </div>
         </section>
-        <section className="flex gap-4 lg:hidden">
+        <section className="flex items-center gap-4 lg:hidden">
           <div className="flex" onClick={toggleTheme}>
             {theme === "dark" ? (
-              <BiSun className="mt-1" />
+              <BiSun className="text-yellow-500" />
             ) : (
-              <BiMoon className="mt-1" />
+              <BiMoon className="text-black" />
             )}
           </div>
           <div onClick={togglePanel}>
             {showLinks ? (
               <div>
-                <FaTimes className="mt-1" />
+                <FaTimes className="text-red-600" />
               </div>
             ) : (
               <div>
-                <HiBars3BottomRight className="mt-1" />
+                <HiBars3BottomRight className="text-blue-500" />
               </div>
             )}
           </div>
@@ -91,15 +93,23 @@ export default function Navbar({ theme, setTheme }) {
         <ul className="hidden lg:flex gap-6">
           {!user && (
             <>
-              <li className="flex cursor-pointer">
-                <AiOutlineUserAdd className="mt-1" />
-                <NavLink to="/signup">
+              <li className="flex gap-1 cursor-pointer">
+                <AiOutlineUserAdd className="text-green-500 mt-1" />
+                <NavLink
+                  to="/signup"
+                  className={theme === "dark" ? "text-white" : "text-gray-800"}
+                  onClick={closePanel}
+                >
                   <h1>Sign Up</h1>
                 </NavLink>
               </li>
-              <li className="flex cursor-pointer">
-                <AiOutlineLogin className="mt-1" />
-                <NavLink to="/login">
+              <li className="flex gap-1 cursor-pointer">
+                <AiOutlineLogin className="text-blue-500 mt-1" />
+                <NavLink
+                  to="/login"
+                  className={theme === "dark" ? "text-white" : "text-gray-800"}
+                  onClick={closePanel}
+                >
                   <h1>Log In</h1>
                 </NavLink>
               </li>
@@ -107,20 +117,31 @@ export default function Navbar({ theme, setTheme }) {
           )}
           {user && (
             <>
-              <li className="flex cursor-pointer">
-                <AiOutlineHome className="mt-1" />
-                <NavLink to="/" onClick={closePanel}>
+              <li className="flex gap-1 cursor-pointer">
+                <AiOutlineHome className="text-yellow-500 mt-1" />
+                <NavLink
+                  to="/"
+                  className={theme === "dark" ? "text-white" : "text-gray-800"}
+                  onClick={closePanel}
+                >
                   <h1>Chat</h1>
                 </NavLink>
               </li>
-              <li className="flex cursor-pointer">
-                <AiOutlineUser className="mt-1" />
-                <NavLink to="/profile" onClick={closePanel}>
+              <li className="flex gap-1 cursor-pointer">
+                <AiOutlineUser className="text-purple-500 mt-1" />
+                <NavLink
+                  to="/profile"
+                  className={theme === "dark" ? "text-white" : "text-gray-800"}
+                  onClick={closePanel}
+                >
                   <h1>Profile</h1>
                 </NavLink>
               </li>
-              <li className="flex cursor-pointer" onClick={logoutEffect}>
-                <AiOutlineLogin className="mt-1" />
+              <li
+                className="flex gap-1 cursor-pointer"
+                onClick={logoutEffect}
+              >
+                <AiOutlineLogin className="text-red-500 mt-1" />
                 <h1>Log Out</h1>
               </li>
             </>
@@ -133,8 +154,8 @@ export default function Navbar({ theme, setTheme }) {
             <motion.ul
               className={
                 theme === "dark"
-                  ? "text-xl bg-white p-2 m-2 rounded  h-96 "
-                  : "text-xl bg-black text-white p-2 m-2 rounded  h-96 "
+                  ? "text-xl bg-gray-800 p-2 m-2 rounded shadow-lg"
+                  : "text-xl bg-white p-2 m-2 rounded shadow-lg"
               }
               initial={{ y: 100 }}
               animate={{ y: 0 }}
@@ -143,15 +164,23 @@ export default function Navbar({ theme, setTheme }) {
             >
               {!user && (
                 <>
-                  <li className="flex">
-                    <AiOutlineUserAdd className="mt-1" />
-                    <NavLink to="/signup" onClick={closePanel}>
+                  <li className="flex gap-1">
+                    <AiOutlineUserAdd className="text-green-500 mt-1" />
+                    <NavLink
+                      to="/signup"
+                      className={theme === "dark" ? "text-white" : "text-gray-800"}
+                      onClick={closePanel}
+                    >
                       <h1>Sign Up</h1>
                     </NavLink>
                   </li>
-                  <li className="flex">
-                    <AiOutlineLogin className="mt-1" />
-                    <NavLink to="/login" onClick={closePanel}>
+                  <li className="flex gap-1">
+                    <AiOutlineLogin className="text-blue-500 mt-1" />
+                    <NavLink
+                      to="/login"
+                      className={theme === "dark" ? "text-white" : "text-gray-800"}
+                      onClick={closePanel}
+                    >
                       <h1>Log In</h1>
                     </NavLink>
                   </li>
@@ -159,20 +188,31 @@ export default function Navbar({ theme, setTheme }) {
               )}
               {user && (
                 <>
-                  <li className="flex">
-                    <AiOutlineHome className="mt-1" />
-                    <NavLink to="/" onClick={closePanel}>
+                  <li className="flex gap-1">
+                    <AiOutlineHome className="text-yellow-500 mt-1" />
+                    <NavLink
+                      to="/"
+                      className={theme === "dark" ? "text-white" : "text-gray-800"}
+                      onClick={closePanel}
+                    >
                       <h1>Chat</h1>
                     </NavLink>
                   </li>
-                  <li className="flex">
-                    <AiOutlineUser className="mt-1" />
-                    <NavLink to="/profile" onClick={closePanel}>
+                  <li className="flex gap-1">
+                    <AiOutlineUser className="text-purple-500 mt-1" />
+                    <NavLink
+                      to="/profile"
+                      className={theme === "dark" ? "text-white" : "text-gray-800"}
+                      onClick={closePanel}
+                    >
                       <h1>Profile</h1>
                     </NavLink>
                   </li>
-                  <li className="flex cursor-pointer" onClick={logoutEffect}>
-                    <AiOutlineLogin className="mt-1" />
+                  <li
+                    className="flex gap-1 cursor-pointer"
+                    onClick={logoutEffect}
+                  >
+                    <AiOutlineLogin className="text-red-500 mt-1" />
                     <h1>Log Out</h1>
                   </li>
                 </>

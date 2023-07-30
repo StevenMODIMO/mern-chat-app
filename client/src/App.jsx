@@ -15,7 +15,7 @@ export default function App() {
     <div
       className={
         theme === "dark"
-          ? "h-full w-full bg-black text-black fixed transition-all duration-700 ease-in-out"
+          ? "h-full w-full bg-gray-700 text-black fixed transition-all duration-700 ease-in-out"
           : "h-full w-full bg-gray-100 text-black fixed transition-all duration-700 ease-in-out"
       }
     >
