@@ -27,11 +27,14 @@ export default function Chat() {
 
   useEffect(() => {
     const getJoinedRooms = async () => {
-      const response = await fetch("https://chat-server-d27s.onrender.com/api/app/chat/rooms", {
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
+      const response = await fetch(
+        "https://chat-server-d27s.onrender.com/api/app/chat/rooms",
+        {
+          headers: {
+            Authorization: `Bearer ${user.token}`,
+          },
+        }
+      );
       const json = await response.json();
 
       if (response.ok) {
@@ -42,31 +45,21 @@ export default function Chat() {
   }, []);
 
   return (
-    <div className={name ? " h-screen mt-32" : "h-screen mt-32"}>
+    <div className="mt-16 max-h-[calc(100vh-4rem)] overflow-y-auto">
       {!name ? (
         <div>
-          <Intro openForm={openForm} />
+            <UserRooms
+              close={closeForm}
+              joined={joined}
+              onData={handleData}
+              joinRoom={joinRoom}
+            />
         </div>
       ) : (
         <div>
           <ChatForm name={name} leave={leaveChat} />
         </div>
       )}
-
-      <div
-        className={
-          showForm
-            ? "transition-all duration-300 ease-in-out absolute top-0 left-0 h-full overflow-scroll w-full bg-gray-900 rounded"
-            : "transition-all duration-300 ease-in-out absolute top-0 -left-full h-full  w-full bg-gray-900 rounded lg:left-0 lg:w-80 lg:top-12"
-        }
-      >
-        <UserRooms
-          close={closeForm}
-          joined={joined}
-          onData={handleData}
-          joinRoom={joinRoom}
-        />
-      </div>
     </div>
   );
 }

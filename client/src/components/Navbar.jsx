@@ -91,13 +91,13 @@ export default function Navbar({ theme, setTheme }) {
         <ul className="hidden lg:flex gap-6">
           {!user && (
             <>
-              <li className="flex">
+              <li className="flex cursor-pointer">
                 <AiOutlineUserAdd className="mt-1" />
                 <NavLink to="/signup">
                   <h1>Sign Up</h1>
                 </NavLink>
               </li>
-              <li className="flex">
+              <li className="flex cursor-pointer">
                 <AiOutlineLogin className="mt-1" />
                 <NavLink to="/login">
                   <h1>Log In</h1>
@@ -107,19 +107,19 @@ export default function Navbar({ theme, setTheme }) {
           )}
           {user && (
             <>
-              <li className="flex">
+              <li className="flex cursor-pointer">
                 <AiOutlineHome className="mt-1" />
                 <NavLink to="/" onClick={closePanel}>
                   <h1>Chat</h1>
                 </NavLink>
               </li>
-              <li className="flex">
+              <li className="flex cursor-pointer">
                 <AiOutlineUser className="mt-1" />
                 <NavLink to="/profile" onClick={closePanel}>
                   <h1>Profile</h1>
                 </NavLink>
               </li>
-              <li className="flex" onClick={logoutEffect}>
+              <li className="flex cursor-pointer" onClick={logoutEffect}>
                 <AiOutlineLogin className="mt-1" />
                 <h1>Log Out</h1>
               </li>
@@ -171,7 +171,7 @@ export default function Navbar({ theme, setTheme }) {
                       <h1>Profile</h1>
                     </NavLink>
                   </li>
-                  <li className="flex" onClick={logoutEffect}>
+                  <li className="flex cursor-pointer" onClick={logoutEffect}>
                     <AiOutlineLogin className="mt-1" />
                     <h1>Log Out</h1>
                   </li>

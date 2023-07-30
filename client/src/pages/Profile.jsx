@@ -191,10 +191,9 @@ export default function Profile() {
               <section>
                 {userRooms.length > 0 ? (
                   <div className="relative flex flex-col items-center">
-                  <h1 className="font-bold m-6">Your Rooms</h1>
-                  <div className="h-1 w-12 bg-blue-500 ml-12 -mt-6"></div>
-                </div>
-                
+                    <h1 className="font-bold m-6">Your Rooms</h1>
+                    <div className="h-1 w-12 bg-blue-500 ml-12 -mt-6"></div>
+                  </div>
                 ) : (
                   <div>
                     <h1 className="font-thin text-center m-6">
@@ -202,7 +201,7 @@ export default function Profile() {
                     </h1>
                   </div>
                 )}
-                <section className="lg:grid lg:grid-cols-4 lg:gap-2">
+                <section className="sm:grid sm:grid-cols-2 sm:gap-2 lg:grid lg:grid-cols-4 lg:gap-2">
                   {userRooms.map((room) => {
                     return (
                       <div
