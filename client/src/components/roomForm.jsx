@@ -16,7 +16,7 @@ const container = {
   },
 };
 
-export default function RoomForm({ closeForm }) {
+export default function RoomForm({ closeForm, theme }) {
   const [room, setRoom] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -59,7 +59,11 @@ export default function RoomForm({ closeForm }) {
         variants={container}
       >
         <motion.div
-          className="bg-white rounded-lg mx-4 p-6 shadow-lg max-w-md w-full"
+          className={
+            theme === "dark"
+              ? "bg-gray-800 rounded-lg mx-4 p-6 shadow-lg max-w-md w-full"
+              : "bg-white rounded-lg mx-4 p-6 shadow-lg max-w-md w-full"
+          }
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
@@ -88,7 +92,11 @@ export default function RoomForm({ closeForm }) {
                 id="roomName"
                 value={room}
                 type="text"
-                className="w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className={
+                  theme === "dark"
+                    ? "w-full border text-black rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    : "w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                }
                 placeholder="e.g board, skills, test"
                 onChange={(e) => setRoom(e.target.value)}
               />

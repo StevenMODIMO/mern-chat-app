@@ -16,7 +16,7 @@ const container = {
   },
 };
 
-export default function ShareForm({ closePanel, RoomID }) {
+export default function ShareForm({ closePanel, RoomID, theme }) {
   const [email, setEmail] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -61,7 +61,11 @@ export default function ShareForm({ closePanel, RoomID }) {
         variants={container}
       >
         <motion.div
-          className="bg-white rounded-lg p-6 mx-4 shadow-lg max-w-md w-full"
+          className={
+            theme === "dark"
+              ? "bg-gray-800 rounded-lg p-6 mx-4 shadow-lg max-w-md w-full"
+              : "bg-white rounded-lg p-6 mx-4 shadow-lg max-w-md w-full"
+          }
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
@@ -81,17 +85,28 @@ export default function ShareForm({ closePanel, RoomID }) {
                 value={RoomID}
                 type="text"
                 readOnly
-                className="w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className={
+                  theme === "dark"
+                    ? "w-full border text-black rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    : "w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                }
               />
               <label className="block mb-2">Enter Your Friend's Email</label>
               <input
                 value={email}
                 type="email"
                 placeholder="Friend's Email address"
-                className="w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className={
+                  theme === "dark"
+                    ? "w-full border text-black rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    : "w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                }
                 onChange={(e) => setEmail(e.target.value)}
               />
-              {error && <div className="text-red-500 text-center mb-2">{error}</div>} {/* Display error message */}
+              {error && (
+                <div className="text-red-500 text-center mb-2">{error}</div>
+              )}{" "}
+              {/* Display error message */}
               {loading ? (
                 <div className="flex justify-center">
                   <Loader />

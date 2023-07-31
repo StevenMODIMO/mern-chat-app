@@ -16,7 +16,7 @@ const container = {
   },
 };
 
-export default function JoinForm({ closeJoin }) {
+export default function JoinForm({ closeJoin, theme }) {
   const [id, setId] = useState("");
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -62,7 +62,11 @@ export default function JoinForm({ closeJoin }) {
         variants={container}
       >
         <motion.div
-          className="bg-white rounded-lg p-6 mx-4 shadow-lg max-w-md w-full"
+          className={
+            theme === "dark"
+              ? "bg-gray-800 rounded-lg p-6 mx-4 shadow-lg max-w-md w-full"
+              : "bg-white rounded-lg p-6 mx-4 shadow-lg max-w-md w-full"
+          }
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -20 }}
@@ -84,11 +88,18 @@ export default function JoinForm({ closeJoin }) {
                 id="roomId"
                 value={id}
                 type="text"
-                className="w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className={
+                  theme === "dark"
+                    ? "w-full border text-black rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    : "w-full border rounded-lg p-2 mb-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                }
                 placeholder="Room Id"
                 onChange={(e) => setId(e.target.value)}
               />
-              {error && <div className="text-red-500 text-center mb-2">{error}</div>} {/* Display error message */}
+              {error && (
+                <div className="text-red-500 text-center mb-2">{error}</div>
+              )}{" "}
+              {/* Display error message */}
               {loading ? (
                 <div className="flex justify-center">
                   <Loader />

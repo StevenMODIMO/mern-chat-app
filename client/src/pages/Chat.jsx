@@ -12,7 +12,7 @@ const joinRoom = (data) => {
   socket.emit("join-room", data);
 };
 
-export default function Chat({theme}) {
+export default function Chat({ theme }) {
   const [showForm, setShowForm] = useState(false);
   const openForm = () => setShowForm(true);
   const closeForm = () => setShowForm(false);
@@ -73,6 +73,7 @@ export default function Chat({theme}) {
               joined={joined}
               onData={handleData}
               joinRoom={joinRoom}
+              theme={theme}
             />
           </motion.div>
         )}
