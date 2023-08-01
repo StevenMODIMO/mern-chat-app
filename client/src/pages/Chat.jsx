@@ -47,16 +47,6 @@ export default function Chat({ theme }) {
 
   return (
     <div className="mt-16 max-h-[calc(100vh-4rem)] overflow-y-auto">
-      {/* For Large Devices: Both components are always visible */}
-      <div className="hidden md:flex">
-        <UserRooms
-          close={closeForm}
-          joined={joined}
-          onData={handleData}
-          joinRoom={joinRoom}
-        />
-        <ChatForm name={name} leave={leaveChat} />
-      </div>
 
       {/* For Small Devices: Show only one component based on the `name` state */}
       <AnimatePresence>
@@ -66,7 +56,6 @@ export default function Chat({ theme }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -50 }}
             key="userRooms"
-            className="md:hidden"
           >
             <UserRooms
               close={closeForm}
@@ -85,7 +74,6 @@ export default function Chat({ theme }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 50 }}
             key="chatForm"
-            className="md:hidden"
           >
             <ChatForm name={name} leave={leaveChat} theme={theme} />
           </motion.div>

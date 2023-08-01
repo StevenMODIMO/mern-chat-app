@@ -50,8 +50,8 @@ export default function UserRooms({ close, joined, onData, joinRoom, theme }) {
     <div
       className={
         theme === "dark"
-          ? "bg-gray-800 text-white shadow-lg mx-2 p-4 rounded-lg  overflow-y-auto md:w-96"
-          : "bg-white shadow-lg mx-2 p-4 rounded-lg overflow-y-auto md:w-96"
+          ? "bg-gray-800 text-white shadow-lg mx-2 p-4 rounded-lg  overflow-y-auto md:w-96 lg:mx-auto"
+          : "bg-white shadow-lg mx-2 p-4 rounded-lg overflow-y-auto md:w-96 lg:mx-auto"
       }
     >
       {Open && (
@@ -94,7 +94,11 @@ export default function UserRooms({ close, joined, onData, joinRoom, theme }) {
         {userRooms.map((room) => (
           <div
             key={room._id}
-            className="flex items-center justify-between p-2 border rounded-lg mb-2 cursor-pointer transition-all duration-300 hover:bg-gray-100"
+            className={
+              theme === "dark"
+                ? "flex items-center justify-between p-2 border rounded-lg mb-2 cursor-pointer transition-all duration-300 hover:bg-gray-700"
+                : "flex items-center justify-between p-2 border rounded-lg mb-2 cursor-pointer transition-all duration-300 hover:bg-gray-100"
+            }
           >
             <main
               onClick={() => {
