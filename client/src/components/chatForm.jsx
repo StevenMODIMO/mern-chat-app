@@ -4,14 +4,11 @@ import { ImExit } from "react-icons/im";
 import { socket } from "../pages/Chat";
 import { useAuth } from "../context/AuthContext";
 import Ping from "./Ping";
-import data from "@emoji-mart/data";
-import Picker from "@emoji-mart/react";
 import { BsEmojiDizzy } from "react-icons/bs";
 
 export default function ChatForm({ name, leave, theme }) {
   const [currentMessage, setCurrentMessage] = useState("");
   const [messageList, setMessageList] = useState([]);
-  const [picker, setPicker] = useState(false);
   const { user } = useAuth();
   const chatContainerRef = useRef(null);
 
@@ -80,9 +77,6 @@ export default function ChatForm({ name, leave, theme }) {
             className="w-10 h-10 rounded-full"
           />
           <div className="ml-2 font-medium text-lg">{name}</div>
-          <span className="ml-2">
-            <Ping />
-          </span>
         </div>
         <div onClick={leave} className="cursor-pointer">
           <ImExit className="text-red-600 text-lg" />
@@ -117,32 +111,7 @@ export default function ChatForm({ name, leave, theme }) {
           ))}
         </div>
       </div>
-      <div
-        className={`${
-          picker ? "block" : "hidden"
-        } md:hidden p-4 absolute  right-0 z-10`}
-      >
-        <Picker
-          data={data}
-          onEmojiSelect={(emoji) =>
-            setCurrentMessage(currentMessage + emoji.native)
-          }
-          maxFrequentRows={0}
-          searchPosition="none"
-          theme="dark"
-          previewPosition="none"
-          icons="solid"
-          emojiSize="20"
-          perLine="6"
-        />
-      </div>
       <form className="p-4 border-t flex items-center" onSubmit={sendMessage}>
-        <label
-          onClick={() => setPicker(!picker)}
-          className="cursor-pointer mr-2"
-        >
-          <BsEmojiDizzy className="text-gray-600 text-xl" />
-        </label>
         <input
           type="text"
           value={currentMessage}
