@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 import UserRooms from "../components/userRooms";
 import ChatForm from "../components/chatForm";
-import Intro from "../components/Intro";
 import { useAuth } from "../context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
 
