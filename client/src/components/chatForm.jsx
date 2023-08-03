@@ -83,9 +83,9 @@ export default function ChatForm({ name, leave, theme }) {
         </header>
         <div className="flex-1 p-4">
           <div className="h-64 overflow-y-auto">
-            {messageList.map((name) => (
+            {messageList.map((name, index) => (
               <main
-                key={name._id}
+                key={index}
                 className={
                   name.sender === user.username
                     ? "flex justify-start"
@@ -100,7 +100,7 @@ export default function ChatForm({ name, leave, theme }) {
                   />
                   <div className="flex flex-col">
                     <div className="text-gray-600 font-medium">{name.sender}</div>
-                    <div className="bg-gray-100 px-3 py-2 rounded-lg break-words max-w-[80%]">
+                    <div className="bg-gray-100 px-3 py-2 rounded-lg break-words max-w-[100%]">
                       {name.message}
                     </div>
                     <div className="text-gray-400 text-xs mt-1">{name.time}</div>

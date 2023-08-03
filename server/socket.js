@@ -4,7 +4,7 @@ const Chat = require("./models/chatModel");
 module.exports = function (server) {
   const io = new Server(server, {
     cors: {
-      origin: "https://vermillion-marshmallow-9b884d.netlify.app/",
+      origin: "https://chat-app-3fog.onrender.com",
       methods: ["GET", "POST"],
     },
   });
