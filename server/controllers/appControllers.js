@@ -88,7 +88,7 @@ const shareRoom = async (req, res) => {
       from: process.env.EMAIL,
       to: receiverEmail,
       subject: "Your Friend is Inviting you join in a Chat",
-      text: `Use this ID to join on the chat: ===>>>  ${RoomID}`,
+      text: `Use this ID to join on the chat: ===>>>  ${RoomID} via the link https://chat-app-3fog.onrender.com`,
     };
 
     transporter.sendMail(message, (err, info) => {
