@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { BsFillKeyFill } from "react-icons/bs";
 import Loader from "../components/Loader";
 import { AiOutlineUser, AiOutlineMail, AiOutlineLink } from "react-icons/ai";
+import  Alert from "../components/Alert"
 
 const container = {
   hidden: { opacity: 0, scale: 0 },
@@ -62,6 +63,7 @@ export default function Signup({ theme }) {
         theme === "dark" ? "text-white" : "text-black"
       }`}
     >
+      <Alert />
       <header className="font-bold">
         <h2>Signup Now</h2>
       </header>

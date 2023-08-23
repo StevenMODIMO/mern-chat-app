@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Loader from "../components/Loader";
 import { AiOutlineMail, AiOutlineLink } from "react-icons/ai";
 import { BsFillKeyFill } from "react-icons/bs";
+import  Alert from "../components/Alert"
 
 const container = {
   hidden: { opacity: 1, scale: 0 },
@@ -64,6 +65,7 @@ export default function Login({ theme }) {
         theme === "dark" ? "text-white" : "text-black"
       }`}
     >
+      <Alert />
       <header className="font-bold">
         <h2>Login Form</h2>
       </header>
