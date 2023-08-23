@@ -15,7 +15,7 @@ export default function Alert() {
 
   return (
     showAlert && showAgain && (
-      <div className="fixed top-0 w-72 p-4 m-6 right-0 text-black bg-gray-100 border border-gray-300 rounded-md shadow-md">
+      <div className="fixed top-0 w-72 p-4 text-sm m-6 right-0 text-black bg-gray-100 border border-gray-300 rounded-md shadow-md">
         <h1 className="text-lg font-semibold mb-2">Alert, Hi!</h1>
         <img src={me} alt="biko" className="w-10" />
         <div>
